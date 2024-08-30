@@ -1,2 +1,2 @@
 # epht-api
-.Net Core API for MDH EPHT
+.Net Core API project for MDH EPHT using Swagger
