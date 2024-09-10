@@ -141,3 +141,98 @@ CREATE TABLE [epht].[Config_Tab_DefaultSetName_Test](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+
+/*===================   epht].Config_Tab_ChartDataSet_Test   =====================*/		
+
+USE [MDHEPHT]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [epht].[Config_Tab_ChartDataSet_Test](
+-- Note that table columns are named to match the existing application object structure
+	chartDataSet_ID [int] IDENTITY(1,1) NOT NULL,
+	tab_ID [int]  FOREIGN KEY REFERENCES  epht.Config_Tab_Test(tab_ID),  -- FK to Config_Tab_Test table
+	setName [nvarchar](255) NULL,
+	
+ CONSTRAINT [PK_Config_Tab_ChartDataSet_Test_ID] PRIMARY KEY CLUSTERED 
+(
+	[chartDataSet_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+/*===================   epht.Config_Tab_UrlParam_Test   =====================*/		
+
+USE [MDHEPHT]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [epht].[Config_Tab_UrlParam_Test](
+-- Note that table columns are named to match the existing application object structure
+	urlParam_ID [int] IDENTITY(1,1) NOT NULL,
+	tab_ID [int]  FOREIGN KEY REFERENCES  epht.Config_Tab_Test(tab_ID),  -- FK to Config_Tab_Test table
+	[param] [nvarchar](255) NULL,
+	[value] [nvarchar](255) NULL,
+	
+ CONSTRAINT [PK_Config_Tab_UrlParam_Test_ID] PRIMARY KEY CLUSTERED 
+(
+	[urlParam_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+/*===================   epht.Config_Tab_ChartConfig_Test   =====================*/		
+
+USE [MDHEPHT]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [epht].[Config_Tab_ChartConfig_Test](
+-- Note that table columns are named to match the existing application object structure.
+-- Be aware that sometimes the existing application expects an unnamed object or an object named mainDatasets or stratificationDatasets.
+	chartConfig_ID [int] IDENTITY(1,1) NOT NULL,
+	tab_ID [int]  FOREIGN KEY REFERENCES  epht.Config_Tab_Test(tab_ID),  -- FK to Config_Tab_Test table
+
+	-- Unnamed object
+	[label] [nvarchar](255) NULL,
+	setName [nvarchar](255) NULL,
+	fill [bit] NULL,
+	[order] [tinyint] NULL,
+	yAxisID [nvarchar](500) NULL,
+	[type] [nvarchar](255) NULL,
+	pointRadius [tinyint] NULL,
+	pointBorderWidth [tinyint] NULL,
+	pointHoverRadius [tinyint] NULL,
+    pointHoverBorderWidth [tinyint] NULL,
+	lineTension [tinyint] NULL,
+	borderWidth [tinyint] NULL,
+	stratification [nvarchar](255) NULL,
+	title [nvarchar](500) NULL,
+	datasetType [nvarchar](255) NULL,		-- discriminator to indicate unnamed, mainDatasets or stratificationDatasets
+	[data] [nvarchar](max) NULL
+
+	
+ CONSTRAINT [PK_Config_Tab_UrlParam_Test_ID] PRIMARY KEY CLUSTERED 
+(
+	[chartConfig_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
