@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,16 +8,17 @@ namespace epht_api.Models
 {
     public class Topic
     {
-        public int topic_ID { get; set; }
-        public string topicTitle { get; set; }
+        [Key]
+        public int Topic_ID { get; set; }
+        public string TopicTitle { get; set; }
         public string topicPath { get; set; }
-        public string category { get; set; }
-        public string defaultTabPath { get; set; }
-        public string overview { get; set; }
-        public string aboutData { get; set; }
-        public string countySuppressionRuleRange { get; set; }
-        public string countySuppressionRulePopMin { get; set; }
-        public string subCountySuppressionRuleRange { get; set; }
-        public string subCountySuppressionRulePopMin { get; set; }
+        public string Category { get; set; }
+        public string DefaultTabPath { get; set; }
+        public string Overview { get; set; }
+        public string AboutData { get; set; }
+        public string CountySuppressionRuleRange { get; set; }
+        public string CountySuppressionRulePopMin { get; set; }
+        public string SubCountySuppressionRuleRange { get; set; }
+        public string SubCountySuppressionRulePopMin { get; set; }
     }
 }

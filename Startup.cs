@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using epht_api.Data;
 
 namespace epht_api
 {
@@ -27,6 +29,9 @@ namespace epht_api
         {
             services.AddControllers();
             services.AddSwaggerGen();
+
+            services.AddDbContext<epht_apiContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
