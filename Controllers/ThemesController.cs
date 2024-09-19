@@ -10,48 +10,48 @@ namespace epht_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TopicsController : ControllerBase
+    public class ThemesController : ControllerBase
     {
         private readonly epht_apiContext _context;
 
-        public TopicsController(epht_apiContext context)
+        public ThemesController(epht_apiContext context)
         {
             _context = context;
         }
 
-        // GET: api/Topics
+        // GET: api/Themes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Topic>>> GetTopic()
+        public async Task<ActionResult<IEnumerable<Theme>>> GetTheme()
         {
-            return await _context.Config_Topic_Test.ToListAsync();
+            return await _context.Config_Theme_Test.ToListAsync();
         }
 
-        // GET: api/Topics/5
+        // GET: api/Themes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Topic>> GetTopic(int id)
+        public async Task<ActionResult<Theme>> GetTheme(int id)
         {
-            var topic = await _context.Config_Topic_Test.FindAsync(id);
+            var theme = await _context.Config_Theme_Test.FindAsync(id);
 
-            if (topic == null)
+            if (theme == null)
             {
                 return NotFound();
             }
 
-            return topic;
+            return theme;
         }
 
-        // PUT: api/Topics/5
+        // PUT: api/Themes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTopic(int id, Topic topic)
+        public async Task<IActionResult> PutTheme(int id, Theme theme)
         {
-            if (id != topic.Topic_ID)
+            if (id != theme.Theme_ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(topic).State = EntityState.Modified;
+            _context.Entry(theme).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace epht_api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TopicExists(id))
+                if (!ThemeExists(id))
                 {
                     return NotFound();
                 }
@@ -72,37 +72,37 @@ namespace epht_api.Controllers
             return NoContent();
         }
 
-        // POST: api/Topics
+        // POST: api/Themes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Topic>> PostTopic(Topic topic)
+        public async Task<ActionResult<Theme>> PostTheme(Theme theme)
         {
-            _context.Config_Topic_Test.Add(topic);
+            _context.Config_Theme_Test.Add(theme);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTopic", new { id = topic.Topic_ID }, topic);
+            return CreatedAtAction("GetTheme", new { id = theme.Theme_ID }, theme);
         }
 
-        // DELETE: api/Topics/5
+        // DELETE: api/Themes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Topic>> DeleteTopic(int id)
+        public async Task<ActionResult<Theme>> DeleteTheme(int id)
         {
-            var topic = await _context.Config_Topic_Test.FindAsync(id);
-            if (topic == null)
+            var theme = await _context.Config_Theme_Test.FindAsync(id);
+            if (theme == null)
             {
                 return NotFound();
             }
 
-            _context.Config_Topic_Test.Remove(topic);
+            _context.Config_Theme_Test.Remove(theme);
             await _context.SaveChangesAsync();
 
-            return topic;
+            return theme;
         }
 
-        private bool TopicExists(int id)
+        private bool ThemeExists(int id)
         {
-            return _context.Config_Topic_Test.Any(e => e.Topic_ID == id);
+            return _context.Config_Theme_Test.Any(e => e.Theme_ID == id);
         }
     }
 }
