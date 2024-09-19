@@ -40,6 +40,24 @@ namespace epht_api.Controllers
             return topic;
         }
 
+        // GET: api/Topics/5/themes
+        [HttpGet("{id}/Themes")]
+        public async Task<ActionResult<Topic>> GetTopicWithThemes(int id)
+        {
+            var topic = await _context.Config_Topic_Test.FindAsync(id);
+
+            if (topic == null)
+            {
+                return NotFound();
+            }
+
+            // This approach returns a list of themes and inserts them into the topic
+            var thList = _context.Config_Theme_Test.AsQueryable();
+            topic.Themes = (List<Theme>)thList.Where(x => x.Topic_ID == id).ToList();
+
+            return topic;
+        }
+
         // PUT: api/Topics/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

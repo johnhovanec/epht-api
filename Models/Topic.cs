@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace epht_api.Models
 {
@@ -16,5 +18,7 @@ namespace epht_api.Models
         public string CountySuppressionRulePopMin { get; set; }
         public string SubCountySuppressionRuleRange { get; set; }
         public string SubCountySuppressionRulePopMin { get; set; }
+        [NotMapped]
+        public List<Theme>Themes { get; set; }
     }
 }
