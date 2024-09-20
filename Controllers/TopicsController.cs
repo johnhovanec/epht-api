@@ -40,10 +40,12 @@ namespace epht_api.Controllers
             return topic;
         }
 
-        // GET: api/Topics/5/themes
-        [HttpGet("{id}/Themes")]
-        public async Task<ActionResult<Topic>> GetTopicWithThemes(int id)
+        // GET: api/Topics/25/GetFullConfig
+        // This endpoint reconstructs the topic.js structure for a given topic ID
+        [HttpGet("{id}/GetFullConfig")]
+        public async Task<ActionResult<Topic>> GetFullConfig(int id)
         {
+            // Find the topic by id
             var topic = await _context.Config_Topic_Test.FindAsync(id);
 
             if (topic == null)
@@ -51,9 +53,28 @@ namespace epht_api.Controllers
                 return NotFound();
             }
 
-            // This approach returns a list of themes and inserts them into the topic
-            var thList = _context.Config_Theme_Test.AsQueryable();
-            topic.Themes = (List<Theme>)thList.Where(x => x.Topic_ID == id).ToList();
+            // Create a list of themes and inserts them into the topic
+            var themeQuery = _context.Config_Theme_Test.AsQueryable();
+            topic.Themes = (List<Theme>)themeQuery.Where(x => x.Topic_ID == id).ToList();
+
+            // Create a list of tabs and inserts them into each theme
+            var tabQuery = _context.Config_Tab_Test.AsQueryable();
+            var tabs = (List<Tab>)tabQuery.Where(t => t.Theme_ID == 1).ToList();
+       
+            for (int i = 0; i < topic.Themes.Count; i++)
+            {
+                for (int j = 0; j < tabs.Count; j++)
+                {
+                    if (topic.Themes[i].Theme_ID == tabs[j].Theme_ID)
+                    {
+                        if (topic.Themes[i].Tabs == null)
+                        {
+                            topic.Themes[i].Tabs = new List<Tab>();
+                        }
+                        topic.Themes[i].Tabs.Add(tabs[j]);
+                    }
+                }
+            }
 
             return topic;
         }

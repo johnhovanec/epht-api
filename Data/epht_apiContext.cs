@@ -17,5 +17,7 @@ namespace epht_api.Data
         public DbSet<epht_api.Models.Topic> Config_Topic_Test { get; set; }
 
         public DbSet<epht_api.Models.Theme> Config_Theme_Test { get; set; }
+
+        public DbSet<epht_api.Models.Tab> Config_Tab_Test { get; set; }
     }
 }

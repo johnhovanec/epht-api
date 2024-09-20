@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace epht_api.Models
@@ -15,5 +16,7 @@ namespace epht_api.Models
         public string ThemeOverviewText { get; set; }
         public string About { get; set; }
         public string Resources { get; set; }
+        [NotMapped]
+        public List<Tab> Tabs { get; set; }
     }
 }
