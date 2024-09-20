@@ -58,15 +58,21 @@ namespace epht_api.Controllers
             topic.Themes = (List<Theme>)themeQuery.Where(x => x.Topic_ID == id).ToList();
 
             // Create a list of tabs and inserts them into each theme
-            var tabQuery = _context.Config_Tab_Test.AsQueryable();
-            var tabs = (List<Tab>)tabQuery.Where(t => t.Theme_ID == 1).ToList();
-       
+            var tabQuery =
+                from tab in _context.Config_Tab_Test
+                join theme in _context.Config_Theme_Test
+                on tab.Theme_ID equals theme.Theme_ID
+                select tab;
+            List<Tab> tabs = tabQuery.ToList();
+
+            // Loop through each theme and insert the related tabs
             for (int i = 0; i < topic.Themes.Count; i++)
             {
                 for (int j = 0; j < tabs.Count; j++)
                 {
                     if (topic.Themes[i].Theme_ID == tabs[j].Theme_ID)
                     {
+                        // Check if the List<Tab> exists and instantiate it if not
                         if (topic.Themes[i].Tabs == null)
                         {
                             topic.Themes[i].Tabs = new List<Tab>();
