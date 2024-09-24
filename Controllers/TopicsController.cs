@@ -57,15 +57,7 @@ namespace epht_api.Controllers
             var themeQuery = _context.Config_Theme_Test.AsQueryable();
             topic.Themes = (List<Theme>)themeQuery.Where(x => x.Topic_ID == id).ToList();
 
-            // Create a list of tabs and inserts them into each theme
-            //var tabQuery =
-            //    from tab in _context.Config_Tab_Test
-            //    join theme in _context.Config_Theme_Test
-            //    on tab.Theme_ID equals theme.Theme_ID
-            //    select tab;
-
-            //var themeIDs = topic.Themes.Select(x => x.Theme_ID);
-
+            // Create a list of tabs filtered by themes and inserts them into each theme
             var tabQuery =
                 from tab in _context.Config_Tab_Test
                 join theme in _context.Config_Theme_Test on tab.Theme_ID equals theme.Theme_ID
