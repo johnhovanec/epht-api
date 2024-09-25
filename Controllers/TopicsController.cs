@@ -65,15 +65,6 @@ namespace epht_api.Controllers
                 select tab;
             List<Tab> tabs = tabQuery.ToList();
 
-            // Create a list of tabs filtered by themes and inserts them into each theme
-            var chartConfigQuery =
-                from tab in _context.Config_Tab_Test
-                join theme in _context.Config_Theme_Test on tab.Theme_ID equals theme.Theme_ID
-                join chartConfig in _context.Config_Tab_ChartConfig_Test on tab.Tab_ID equals chartConfig.Tab_ID
-                where topic.Themes.Select(x => x.Theme_ID).Contains(tab.Theme_ID)
-                select chartConfig;
-            List<Tab_ChartConfig> chartConfigs = chartConfigQuery.ToList();
-
             // Loop through each theme and insert the related tabs
             for (int i = 0; i < topic.Themes.Count; i++)
             {
@@ -93,7 +84,14 @@ namespace epht_api.Controllers
                         {
                             topic.Themes[i].Tabs[j].ChartConfigs = new List<Tab_ChartConfig>();
                         }
-                        topic.Themes[i].Tabs[j].ChartConfigs = chartConfigs;
+                        topic.Themes[i].Tabs[j].ChartConfigs = _context.Config_Tab_ChartConfig_Test.Where(chartConfig => chartConfig.Tab_ID == tabs[j].Tab_ID).ToList();
+
+                        // Check if the List<UrlParams> exists and instantiate it if not
+                        if (topic.Themes[i].Tabs[j].UrlParams == null)
+                        {
+                            topic.Themes[i].Tabs[j].UrlParams = new List<Tab_UrlParam>();
+                        }
+                        topic.Themes[i].Tabs[j].UrlParams = _context.Config_Tab_UrlParam_Test.Where(urlParam => urlParam.Tab_ID == tabs[j].Tab_ID).ToList();
                     }
                 }
             }

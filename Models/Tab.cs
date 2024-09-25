@@ -31,5 +31,7 @@ namespace epht_api.Models
         public string TableTitle { get; set; }
         [NotMapped]
         public List<Tab_ChartConfig> ChartConfigs { get; set; }
+        [NotMapped]
+        public List<Tab_UrlParam> UrlParams { get; set; }
     }
 }
