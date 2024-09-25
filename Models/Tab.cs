@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace epht_api.Models
@@ -28,5 +29,7 @@ namespace epht_api.Models
         public string XAxisLabel { get; set; }
         public string Url { get; set; }
         public string TableTitle { get; set; }
+        [NotMapped]
+        public List<Tab_ChartConfig> ChartConfigs { get; set; }
     }
 }

@@ -65,10 +65,19 @@ namespace epht_api.Controllers
                 select tab;
             List<Tab> tabs = tabQuery.ToList();
 
+            // Create a list of tabs filtered by themes and inserts them into each theme
+            var chartConfigQuery =
+                from tab in _context.Config_Tab_Test
+                join theme in _context.Config_Theme_Test on tab.Theme_ID equals theme.Theme_ID
+                join chartConfig in _context.Config_Tab_ChartConfig_Test on tab.Tab_ID equals chartConfig.Tab_ID
+                where topic.Themes.Select(x => x.Theme_ID).Contains(tab.Theme_ID)
+                select chartConfig;
+            List<Tab_ChartConfig> chartConfigs = chartConfigQuery.ToList();
+
             // Loop through each theme and insert the related tabs
             for (int i = 0; i < topic.Themes.Count; i++)
             {
-                for (int j = 0; j < tabs.Count; j++)
+                for (int j = 0; j < tabs.Count - 1; j++)
                 {
                     if (topic.Themes[i].Theme_ID == tabs[j].Theme_ID)
                     {
@@ -78,6 +87,13 @@ namespace epht_api.Controllers
                             topic.Themes[i].Tabs = new List<Tab>();
                         }
                         topic.Themes[i].Tabs.Add(tabs[j]);
+
+                        // Check if the List<ChartConfig> exists and instantiate it if not
+                        if (topic.Themes[i].Tabs[j].ChartConfigs == null)
+                        {
+                            topic.Themes[i].Tabs[j].ChartConfigs = new List<Tab_ChartConfig>();
+                        }
+                        topic.Themes[i].Tabs[j].ChartConfigs = chartConfigs;
                     }
                 }
             }

@@ -21,5 +21,7 @@ namespace epht_api.Data
         public DbSet<epht_api.Models.Tab> Config_Tab_Test { get; set; }
 
         public DbSet<epht_api.Models.Tab_ChartConfig> Config_Tab_ChartConfig_Test { get; set; }
+
+        public DbSet<epht_api.Models.Tab_UrlParam> Config_Tab_UrlParam_Test { get; set; }
     }
 }
