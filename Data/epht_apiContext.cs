@@ -25,5 +25,7 @@ namespace epht_api.Data
         public DbSet<epht_api.Models.Tab_UrlParam> Config_Tab_UrlParam_Test { get; set; }
 
         public DbSet<epht_api.Models.Tab_MapSet> Config_Tab_MapSet_Test { get; set; }
+
+        public DbSet<epht_api.Models.MapSet_Outfield> Config_MapSet_Outfield_Test { get; set; }
     }
 }
