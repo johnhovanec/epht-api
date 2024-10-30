@@ -33,5 +33,7 @@ namespace epht_api.Models
         public List<Tab_ChartConfig> ChartConfigs { get; set; }
         [NotMapped]
         public List<Tab_UrlParam> UrlParams { get; set; }
+        [NotMapped]
+        public List<Tab_MapSet> MapSets { get; set; }
     }
 }

@@ -92,6 +92,13 @@ namespace epht_api.Controllers
                             topic.Themes[i].Tabs[j].UrlParams = new List<Tab_UrlParam>();
                         }
                         topic.Themes[i].Tabs[j].UrlParams = _context.Config_Tab_UrlParam_Test.Where(urlParam => urlParam.Tab_ID == tabs[j].Tab_ID).ToList();
+
+                        // Check if the List<MapSets> exists and instantiate it if not
+                        if (topic.Themes[i].Tabs[j].MapSets == null)
+                        {
+                            topic.Themes[i].Tabs[j].MapSets = new List<Tab_MapSet>();
+                        }
+                        topic.Themes[i].Tabs[j].MapSets = _context.Config_Tab_MapSet_Test.Where(mapSet => mapSet.Tab_ID == tabs[j].Tab_ID).ToList();
                     }
                 }
             }
