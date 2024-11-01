@@ -79,30 +79,68 @@ namespace epht_api.Controllers
                         }
                         topic.Themes[i].Tabs.Add(tabs[j]);
 
-                        // Check if the List<ChartConfig> exists and instantiate it if not
-                        if (topic.Themes[i].Tabs[j].ChartConfigs == null)
+                        #region ChartContent
+                        // Chart related content
+                        if (topic.Themes[i].Tabs[j].ContentType == "chart")
                         {
-                            topic.Themes[i].Tabs[j].ChartConfigs = new List<Tab_ChartConfig>();
-                        }
-                        topic.Themes[i].Tabs[j].ChartConfigs = _context.Config_Tab_ChartConfig_Test.Where(chartConfig => chartConfig.Tab_ID == tabs[j].Tab_ID)?.ToList();
+                            // Check if the List<ChartConfig> exists and instantiate it if not
+                            if (topic.Themes[i].Tabs[j].ChartConfigs == null)
+                            {
+                                topic.Themes[i].Tabs[j].ChartConfigs = new List<Tab_ChartConfig>();
+                            }
+                            topic.Themes[i].Tabs[j].ChartConfigs = _context.Config_Tab_ChartConfig_Test.Where(chartConfig => chartConfig.Tab_ID == tabs[j].Tab_ID)?.ToList();
 
-                        // Check if the List<UrlParams> exists and instantiate it if not
-                        if (topic.Themes[i].Tabs[j].UrlParams == null)
-                        {
-                            topic.Themes[i].Tabs[j].UrlParams = new List<Tab_UrlParam>();
+                            // Check if the List<UrlParams> exists and instantiate it if not
+                            if (topic.Themes[i].Tabs[j].UrlParams == null)
+                            {
+                                topic.Themes[i].Tabs[j].UrlParams = new List<Tab_UrlParam>();
+                            }
+                            topic.Themes[i].Tabs[j].UrlParams = _context.Config_Tab_UrlParam_Test.Where(urlParam => urlParam.Tab_ID == tabs[j].Tab_ID)?.ToList();
                         }
-                        topic.Themes[i].Tabs[j].UrlParams = _context.Config_Tab_UrlParam_Test.Where(urlParam => urlParam.Tab_ID == tabs[j].Tab_ID)?.ToList();
+                        #endregion
 
-                        // Check if the List<MapSets> exists and instantiate it if not
-                        if (topic.Themes[i].Tabs[j].MapSets == null)
+                        #region MapContent
+                        // Map related content
+                        if (topic.Themes[i].Tabs[j].ContentType == "map")
                         {
-                            topic.Themes[i].Tabs[j].MapSets = new List<Tab_MapSet>();
+                            // Check List<MapSets> exists and instantiate it if not
+                            if (topic.Themes[i].Tabs[j].MapSets == null)
+                            {
+                                topic.Themes[i].Tabs[j].MapSets = new List<Tab_MapSet>();
+                            }
+                            topic.Themes[i].Tabs[j].MapSets = _context.Config_Tab_MapSet_Test.Where(mapSet => mapSet.Tab_ID == tabs[j].Tab_ID)?.ToList();
+
+                            // Create a list of tabs for the given theme 
+                            if (topic.Themes[i].Tabs[j].MapSets.Count > 0)
+                            {
+                                //var outfieldQuery =
+                                //from ot in _context.Config_MapSet_Outfield_Test.DefaultIfEmpty()
+                                //join ms in _context.Config_Tab_MapSet_Test on ot.MapSet_ID equals ms.MapSet_ID
+                                //where ot.MapSet_ID == topic.Themes[i].Tabs[j].MapSets
+                                //select ot;
+                                //List<MapSet_Outfield> outFields = outfieldQuery?.ToList();
+
+                                var mapSetQuery =
+                                from mapSet in _context.Config_Tab_MapSet_Test.DefaultIfEmpty()
+                                join tab in _context.Config_Tab_Test on mapSet.Tab_ID equals tab.Tab_ID
+                                where tab.Tab_ID == topic.Themes[i].Tabs[j].Tab_ID
+                                select mapSet;
+                                List<Tab_MapSet> mapSets = mapSetQuery?.ToList();
+
+                                for (int k = 0; k < mapSets.Count; k++)
+                                {
+                                    if (topic.Themes[i].Tabs[j].MapSets[k].MapSet_ID == mapSets[k].MapSet_ID)
+                                    {
+                                        //topic.Themes[i].Tabs[j].MapSets[k] = _context.Config_Tab_MapSet_Test.Where(mapSet => mapSet.MapSet_ID == mapSets[k].MapSet_ID).ToList();
+                                        topic.Themes[i].Tabs[j].MapSets[k] = mapSets[k];
+                                    }
+                                }
+                            }
                         }
-                        topic.Themes[i].Tabs[j].MapSets = _context.Config_Tab_MapSet_Test.Where(mapSet => mapSet.Tab_ID == tabs[j].Tab_ID)?.ToList();
+                        #endregion
                     }
                 }
             }
-
             return topic;
         }
 
