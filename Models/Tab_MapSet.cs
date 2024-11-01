@@ -17,7 +17,7 @@ namespace epht_api.Models
         [NotMapped]
         public List<MapSet_Outfield> Outfields { get; set; }
         [NotMapped]
-        public List<Tab_ColumnHeader> ColumnHeaders { get; set; }
+        public List<MapSet_ColumnHeader> ColumnHeaders { get; set; }
         [NotMapped]
         public List<Tab_PopupContent> PopupContent { get; set; }
         [NotMapped]

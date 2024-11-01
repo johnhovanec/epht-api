@@ -110,7 +110,7 @@ namespace epht_api.Controllers
                             }
                             topic.Themes[i].Tabs[j].MapSets = _context.Config_Tab_MapSet_Test.Where(mapSet => mapSet.Tab_ID == tabs[j].Tab_ID)?.ToList();
 
-                            // Create a list of tabs for the given theme 
+                            // Create a list of mapSets for the given theme 
                             if (topic.Themes[i].Tabs[j].MapSets.Count > 0)
                             {
                                 var mapSetQuery =
@@ -134,6 +134,14 @@ namespace epht_api.Controllers
                                         topic.Themes[i].Tabs[j].MapSets[k].Outfields = new List<MapSet_Outfield>();
                                     }
                                     topic.Themes[i].Tabs[j].MapSets[k].Outfields = _context.Config_MapSet_Outfield_Test.Where(outfield => outfield.MapSet_ID== mapSets[k].MapSet_ID)?.ToList();
+
+
+                                    // Check List<MapSet_ColumnHeaders> exists and instantiate it if not
+                                    if (topic.Themes[i].Tabs[j].MapSets[k].ColumnHeaders == null)
+                                    {
+                                        topic.Themes[i].Tabs[j].MapSets[k].ColumnHeaders = new List<MapSet_ColumnHeader>();
+                                    }
+                                    topic.Themes[i].Tabs[j].MapSets[k].ColumnHeaders = _context.Config_MapSet_ColumnHeader_Test.Where(columnHeader => columnHeader.MapSet_ID == mapSets[k].MapSet_ID)?.ToList();
                                 }
                             }
                         }
