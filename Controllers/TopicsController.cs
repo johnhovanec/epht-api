@@ -113,13 +113,6 @@ namespace epht_api.Controllers
                             // Create a list of tabs for the given theme 
                             if (topic.Themes[i].Tabs[j].MapSets.Count > 0)
                             {
-                                //var outfieldQuery =
-                                //from ot in _context.Config_MapSet_Outfield_Test.DefaultIfEmpty()
-                                //join ms in _context.Config_Tab_MapSet_Test on ot.MapSet_ID equals ms.MapSet_ID
-                                //where ot.MapSet_ID == topic.Themes[i].Tabs[j].MapSets
-                                //select ot;
-                                //List<MapSet_Outfield> outFields = outfieldQuery?.ToList();
-
                                 var mapSetQuery =
                                 from mapSet in _context.Config_Tab_MapSet_Test.DefaultIfEmpty()
                                 join tab in _context.Config_Tab_Test on mapSet.Tab_ID equals tab.Tab_ID
@@ -134,6 +127,13 @@ namespace epht_api.Controllers
                                         //topic.Themes[i].Tabs[j].MapSets[k] = _context.Config_Tab_MapSet_Test.Where(mapSet => mapSet.MapSet_ID == mapSets[k].MapSet_ID).ToList();
                                         topic.Themes[i].Tabs[j].MapSets[k] = mapSets[k];
                                     }
+
+                                    // Check List<MapSet_Outfield> exists and instantiate it if not
+                                    if (topic.Themes[i].Tabs[j].MapSets[k].Outfields == null)
+                                    {
+                                        topic.Themes[i].Tabs[j].MapSets[k].Outfields = new List<MapSet_Outfield>();
+                                    }
+                                    topic.Themes[i].Tabs[j].MapSets[k].Outfields = _context.Config_MapSet_Outfield_Test.Where(outfield => outfield.MapSet_ID== mapSets[k].MapSet_ID)?.ToList();
                                 }
                             }
                         }
