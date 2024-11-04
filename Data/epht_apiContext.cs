@@ -29,5 +29,7 @@ namespace epht_api.Data
         public DbSet<epht_api.Models.MapSet_Outfield> Config_MapSet_Outfield_Test { get; set; }
 
         public DbSet<epht_api.Models.MapSet_ColumnHeader> Config_MapSet_ColumnHeader_Test { get; set; }
+
+        public DbSet<epht_api.Models.MapSet_PopupContent> Config_MapSet_PopupContent_Test { get; set; }
     }
 }

@@ -135,13 +135,19 @@ namespace epht_api.Controllers
                                     }
                                     topic.Themes[i].Tabs[j].MapSets[k].Outfields = _context.Config_MapSet_Outfield_Test.Where(outfield => outfield.MapSet_ID== mapSets[k].MapSet_ID)?.ToList();
 
-
                                     // Check List<MapSet_ColumnHeaders> exists and instantiate it if not
                                     if (topic.Themes[i].Tabs[j].MapSets[k].ColumnHeaders == null)
                                     {
                                         topic.Themes[i].Tabs[j].MapSets[k].ColumnHeaders = new List<MapSet_ColumnHeader>();
                                     }
                                     topic.Themes[i].Tabs[j].MapSets[k].ColumnHeaders = _context.Config_MapSet_ColumnHeader_Test.Where(columnHeader => columnHeader.MapSet_ID == mapSets[k].MapSet_ID)?.ToList();
+
+                                    // Check List<MapSet_PopupContent> exists and instantiate it if not
+                                    if (topic.Themes[i].Tabs[j].MapSets[k].PopupContent  == null)
+                                    {
+                                        topic.Themes[i].Tabs[j].MapSets[k].PopupContent = new List<MapSet_PopupContent>();
+                                    }
+                                    topic.Themes[i].Tabs[j].MapSets[k].PopupContent = _context.Config_MapSet_PopupContent_Test.Where(popupContent => popupContent.MapSet_ID == mapSets[k].MapSet_ID)?.ToList();
                                 }
                             }
                         }
