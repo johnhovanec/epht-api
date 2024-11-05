@@ -149,8 +149,6 @@ namespace epht_api.Controllers
                                     }
                                     topic.Themes[i].Tabs[j].MapSets[k].PopupContents = _context.Config_MapSet_PopupContent_Test.Where(popupContent => popupContent.MapSet_ID == mapSets[k].MapSet_ID)?.ToList();
 
-
-
                                     // Create a list of SetLayers for the given MapSet
                                     var setLayerQuery =
                                     from setLayer in _context.Config_MapSet_SetLayer_Test.DefaultIfEmpty()
@@ -166,13 +164,20 @@ namespace epht_api.Controllers
                                     }
                                     topic.Themes[i].Tabs[j].MapSets[k].SetLayers = setLayers;
 
-                                    //for (int l = 0; l < setLayers.Count; l++)
-                                    //{
-
-                                    //}
-
+                                    // SetLayer_Content
+                                    for (int l = 0; l < setLayers.Count; l++)
+                                    {
+                                        // Only want to add SetLayer_Content for reference layers
+                                        if (topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].ReferenceLayer)
+                                        {
+                                            if (topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].Contents == null)
+                                            {
+                                                topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].Contents = new List<SetLayer_Content>();
+                                            }
+                                            topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].Contents = _context.Config_SetLayer_Content_Test.Where(content => content.SetLayer_ID == setLayers[l].SetLayer_ID)?.ToList(); ;
+                                        }
+                                    }
                                 }
-
                             }
                         }
                         #endregion
