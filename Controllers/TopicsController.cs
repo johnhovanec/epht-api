@@ -133,7 +133,7 @@ namespace epht_api.Controllers
                                     {
                                         topic.Themes[i].Tabs[j].MapSets[k].Outfields = new List<MapSet_Outfield>();
                                     }
-                                    topic.Themes[i].Tabs[j].MapSets[k].Outfields = _context.Config_MapSet_Outfield_Test.Where(outfield => outfield.MapSet_ID== mapSets[k].MapSet_ID)?.ToList();
+                                    topic.Themes[i].Tabs[j].MapSets[k].Outfields = _context.Config_MapSet_Outfield_Test.Where(outfield => outfield.MapSet_ID == mapSets[k].MapSet_ID)?.ToList();
 
                                     // Check List<MapSet_ColumnHeaders> exists and instantiate it if not
                                     if (topic.Themes[i].Tabs[j].MapSets[k].ColumnHeaders == null)
@@ -143,12 +143,36 @@ namespace epht_api.Controllers
                                     topic.Themes[i].Tabs[j].MapSets[k].ColumnHeaders = _context.Config_MapSet_ColumnHeader_Test.Where(columnHeader => columnHeader.MapSet_ID == mapSets[k].MapSet_ID)?.ToList();
 
                                     // Check List<MapSet_PopupContent> exists and instantiate it if not
-                                    if (topic.Themes[i].Tabs[j].MapSets[k].PopupContent  == null)
+                                    if (topic.Themes[i].Tabs[j].MapSets[k].PopupContents == null)
                                     {
-                                        topic.Themes[i].Tabs[j].MapSets[k].PopupContent = new List<MapSet_PopupContent>();
+                                        topic.Themes[i].Tabs[j].MapSets[k].PopupContents = new List<MapSet_PopupContent>();
                                     }
-                                    topic.Themes[i].Tabs[j].MapSets[k].PopupContent = _context.Config_MapSet_PopupContent_Test.Where(popupContent => popupContent.MapSet_ID == mapSets[k].MapSet_ID)?.ToList();
+                                    topic.Themes[i].Tabs[j].MapSets[k].PopupContents = _context.Config_MapSet_PopupContent_Test.Where(popupContent => popupContent.MapSet_ID == mapSets[k].MapSet_ID)?.ToList();
+
+
+
+                                    // Create a list of SetLayers for the given MapSet
+                                    var setLayerQuery =
+                                    from setLayer in _context.Config_MapSet_SetLayer_Test.DefaultIfEmpty()
+                                    join mapSet in _context.Config_Tab_MapSet_Test on setLayer.MapSet_ID equals mapSet.MapSet_ID
+                                    where setLayer.MapSet_ID == topic.Themes[i].Tabs[j].MapSets[k].MapSet_ID
+                                    select setLayer;
+                                    List<MapSet_SetLayer> setLayers = setLayerQuery?.ToList();
+
+                                    // Check List<MapSets_SetLayer> exists and instantiate it if not
+                                    if (topic.Themes[i].Tabs[j].MapSets[k].SetLayers == null)
+                                    {
+                                        topic.Themes[i].Tabs[j].MapSets[k].SetLayers = new List<MapSet_SetLayer>();
+                                    }
+                                    topic.Themes[i].Tabs[j].MapSets[k].SetLayers = setLayers;
+
+                                    //for (int l = 0; l < setLayers.Count; l++)
+                                    //{
+
+                                    //}
+
                                 }
+
                             }
                         }
                         #endregion

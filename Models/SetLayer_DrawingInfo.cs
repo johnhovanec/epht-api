@@ -1,6 +1,6 @@
 ﻿namespace epht_api.Models
 {
-    public class Tab_SetLayer
+    public class SetLayer_DrawingInfo
     {
     }
 }

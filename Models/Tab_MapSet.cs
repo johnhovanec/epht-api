@@ -19,8 +19,8 @@ namespace epht_api.Models
         [NotMapped]
         public List<MapSet_ColumnHeader> ColumnHeaders { get; set; }
         [NotMapped]
-        public List<MapSet_PopupContent> PopupContent { get; set; }
+        public List<MapSet_PopupContent> PopupContents { get; set; }
         [NotMapped]
-        public List<Tab_SetLayer> SetLayers { get; set; }
+        public List<MapSet_SetLayer> SetLayers { get; set; }
     }
 }
