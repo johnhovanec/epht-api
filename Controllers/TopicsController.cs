@@ -182,7 +182,32 @@ namespace epht_api.Controllers
                                             {
                                                 topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].DrawingInfo = new SetLayer_DrawingInfo();
                                             }
-                                            topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].DrawingInfo = _context.Config_SetLayer_DrawingInfo_Test.FirstOrDefault(drawingInfo => drawingInfo.SetLayer_ID == setLayers[l].SetLayer_ID);
+                                            // Query to populate the nested object structure for DrawingInfo
+                                            topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].DrawingInfo = (
+                                                from drawingInfo in _context.Config_SetLayer_DrawingInfo_Test
+                                                select new SetLayer_DrawingInfo()
+                                                {
+                                                    DrawingInfo_ID = drawingInfo.DrawingInfo_ID,
+                                                    SetLayer_ID = drawingInfo.SetLayer_ID,
+                                                    Renderer = new SetLayer_DrawingInfo.DrawingInfoRenderer()
+                                                    {
+                                                        Type = drawingInfo.RendererType,
+                                                        Symbol = new SetLayer_DrawingInfo.DrawingInfoSymbol()
+                                                        {
+                                                            Type = drawingInfo.SymbolType,
+                                                            Url = drawingInfo.SymbolUrl,
+                                                            ImageData = drawingInfo.SymbolImageData,
+                                                            ContentType = drawingInfo.SymbolContentType,
+                                                            Width = drawingInfo.SymbolWidth,
+                                                            Height = drawingInfo.SymbolHeight,
+                                                            Angle = drawingInfo.SymbolAngle,
+                                                            XOffset = drawingInfo.SymbolXOffset,
+                                                            YOffset = drawingInfo.SymbolYOffset
+                                                        },
+                                                        Label = drawingInfo.RendererLabel,
+                                                        Description = drawingInfo.RendererDescription
+                                                    }
+                                                }).FirstOrDefault(drawingInfo => drawingInfo.SetLayer_ID == setLayers[l].SetLayer_ID);
                                         }
                                     }
                                 }
