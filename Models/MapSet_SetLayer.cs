@@ -29,6 +29,6 @@ namespace epht_api.Models
         [NotMapped]
         public SetLayer_Content Content { get; set; }
         [NotMapped]
-        public List<SetLayer_DrawingInfo> DrawingInfos { get; set; }
+        public SetLayer_DrawingInfo DrawingInfo { get; set; }
     }
 }

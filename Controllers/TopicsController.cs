@@ -167,14 +167,22 @@ namespace epht_api.Controllers
                                     // SetLayer_Content
                                     for (int l = 0; l < setLayers.Count; l++)
                                     {
-                                        // Check if it is a reference layer: only reference layers will have SetLayer_Content
+                                        // Check if it is a reference layer: only reference layers will have SetLayer_Content and SetLayer_DrawingInfo
                                         if (topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].ReferenceLayer)
                                         {
+                                            // SetLayer_Content
                                             if (topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].Content == null)
                                             {
                                                 topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].Content = new SetLayer_Content();
                                             }
-                                            topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].Content = await _context.Config_SetLayer_Content_Test.FirstOrDefaultAsync(content => content.SetLayer_ID == setLayers[l].SetLayer_ID); ;
+                                            topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].Content = _context.Config_SetLayer_Content_Test.FirstOrDefault(content => content.SetLayer_ID == setLayers[l].SetLayer_ID);
+
+                                            // SetLayer_DrawingInfo
+                                            if (topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].DrawingInfo == null)
+                                            {
+                                                topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].DrawingInfo = new SetLayer_DrawingInfo();
+                                            }
+                                            topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].DrawingInfo = _context.Config_SetLayer_DrawingInfo_Test.FirstOrDefault(drawingInfo => drawingInfo.SetLayer_ID == setLayers[l].SetLayer_ID);
                                         }
                                     }
                                 }
