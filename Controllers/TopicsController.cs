@@ -167,14 +167,14 @@ namespace epht_api.Controllers
                                     // SetLayer_Content
                                     for (int l = 0; l < setLayers.Count; l++)
                                     {
-                                        // Only want to add SetLayer_Content for reference layers
+                                        // Check if it is a reference layer: only reference layers will have SetLayer_Content
                                         if (topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].ReferenceLayer)
                                         {
-                                            if (topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].Contents == null)
+                                            if (topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].Content == null)
                                             {
-                                                topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].Contents = new List<SetLayer_Content>();
+                                                topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].Content = new SetLayer_Content();
                                             }
-                                            topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].Contents = _context.Config_SetLayer_Content_Test.Where(content => content.SetLayer_ID == setLayers[l].SetLayer_ID)?.ToList(); ;
+                                            topic.Themes[i].Tabs[j].MapSets[k].SetLayers[l].Content = await _context.Config_SetLayer_Content_Test.FirstOrDefaultAsync(content => content.SetLayer_ID == setLayers[l].SetLayer_ID); ;
                                         }
                                     }
                                 }

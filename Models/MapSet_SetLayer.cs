@@ -27,7 +27,7 @@ namespace epht_api.Models
         public bool OmitCommunityProfile { get; set; }
         public string Url { get; set; }
         [NotMapped]
-        public List<SetLayer_Content> Contents { get; set; }
+        public SetLayer_Content Content { get; set; }
         [NotMapped]
         public List<SetLayer_DrawingInfo> DrawingInfos { get; set; }
     }
