@@ -31,11 +31,13 @@ namespace epht_api.Data
         public DbSet<epht_api.Models.MapSet_ColumnHeader> Config_MapSet_ColumnHeader_Test { get; set; }
 
         public DbSet<epht_api.Models.MapSet_PopupContent> Config_MapSet_PopupContent_Test { get; set; }
-
+        
         public DbSet<epht_api.Models.MapSet_SetLayer> Config_MapSet_SetLayer_Test { get; set; }
 
         public DbSet<epht_api.Models.SetLayer_Content> Config_SetLayer_Content_Test { get; set; }
 
         public DbSet<epht_api.Models.SetLayer_DrawingInfo> Config_SetLayer_DrawingInfo_Test { get; set; }
+
+        public DbSet<epht_api.Models.Tab_ChartDataSet> Config_Tab_ChartDataSet_Test { get; set; }
     }
 }
