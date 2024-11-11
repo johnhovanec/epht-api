@@ -96,6 +96,13 @@ namespace epht_api.Controllers
                                 topic.Themes[i].Tabs[j].UrlParams = new List<Tab_UrlParam>();
                             }
                             topic.Themes[i].Tabs[j].UrlParams = _context.Config_Tab_UrlParam_Test.Where(urlParam => urlParam.Tab_ID == tabs[j].Tab_ID)?.ToList();
+
+                            // Check if the List<Tab_ChartDataSet> exists and instantiate it if not
+                            if (topic.Themes[i].Tabs[j].ChartDataSets == null)
+                            {
+                                topic.Themes[i].Tabs[j].ChartDataSets = new List<Tab_ChartDataSet>();
+                            }
+                            topic.Themes[i].Tabs[j].ChartDataSets = _context.Config_Tab_ChartDataSet_Test.Where(chartDataSet => chartDataSet.Tab_ID == tabs[j].Tab_ID)?.ToList();
                         }
                         #endregion
 
@@ -124,7 +131,6 @@ namespace epht_api.Controllers
                                 {
                                     if (topic.Themes[i].Tabs[j].MapSets[k].MapSet_ID == mapSets[k].MapSet_ID)
                                     {
-                                        //topic.Themes[i].Tabs[j].MapSets[k] = _context.Config_Tab_MapSet_Test.Where(mapSet => mapSet.MapSet_ID == mapSets[k].MapSet_ID).ToList();
                                         topic.Themes[i].Tabs[j].MapSets[k] = mapSets[k];
                                     }
 
