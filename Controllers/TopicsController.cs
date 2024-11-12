@@ -100,9 +100,9 @@ namespace epht_api.Controllers
                             // Check if the List<Tab_ChartDataSet> exists and instantiate it if not
                             if (topic.Themes[i].Tabs[j].ChartDataSets == null)
                             {
-                                topic.Themes[i].Tabs[j].ChartDataSets = new List<Tab_ChartDataSet>();
+                                topic.Themes[i].Tabs[j].ChartDataSets = new List<string>();
                             }
-                            topic.Themes[i].Tabs[j].ChartDataSets = _context.Config_Tab_ChartDataSet_Test.Where(chartDataSet => chartDataSet.Tab_ID == tabs[j].Tab_ID)?.ToList();
+                            topic.Themes[i].Tabs[j].ChartDataSets = _context.Config_Tab_ChartDataSet_Test.Where(chartDataSet => chartDataSet.Tab_ID == tabs[j].Tab_ID).Select(s => s.SetName)?.ToList();
 
                             // Check if the List<Tab_DefaultSetName> exists and instantiate it if not
                             if (topic.Themes[i].Tabs[j].DefaultSetNames == null)
