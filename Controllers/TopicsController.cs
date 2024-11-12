@@ -103,6 +103,13 @@ namespace epht_api.Controllers
                                 topic.Themes[i].Tabs[j].ChartDataSets = new List<Tab_ChartDataSet>();
                             }
                             topic.Themes[i].Tabs[j].ChartDataSets = _context.Config_Tab_ChartDataSet_Test.Where(chartDataSet => chartDataSet.Tab_ID == tabs[j].Tab_ID)?.ToList();
+
+                            // Check if the List<Tab_DefaultSetName> exists and instantiate it if not
+                            if (topic.Themes[i].Tabs[j].DefaultSetNames == null)
+                            {
+                                topic.Themes[i].Tabs[j].DefaultSetNames = new List<string>();
+                            }
+                            topic.Themes[i].Tabs[j].DefaultSetNames = _context.Config_Tab_DefaultSetName_Test.Where(defaultSetName => defaultSetName.Tab_ID == tabs[j].Tab_ID).Select(s => s.SetName)?.ToList();
                         }
                         #endregion
 

@@ -37,5 +37,7 @@ namespace epht_api.Models
         public List<Tab_MapSet> MapSets { get; set; }
         [NotMapped]
         public List<Tab_ChartDataSet> ChartDataSets { get; set; }
+        [NotMapped]
+        public List<string> DefaultSetNames { get; set; }
     }
 }
