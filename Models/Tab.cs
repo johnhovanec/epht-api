@@ -40,5 +40,7 @@ namespace epht_api.Models
         public List<string> ChartDataSets { get; set; }
         [NotMapped]
         public List<string> DefaultSetNames { get; set; }
+        [NotMapped]
+        public List<Tab_Stratification> Stratifications { get; set; }
     }
 }

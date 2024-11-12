@@ -110,6 +110,14 @@ namespace epht_api.Controllers
                                 topic.Themes[i].Tabs[j].DefaultSetNames = new List<string>();
                             }
                             topic.Themes[i].Tabs[j].DefaultSetNames = _context.Config_Tab_DefaultSetName_Test.Where(defaultSetName => defaultSetName.Tab_ID == tabs[j].Tab_ID).Select(s => s.SetName)?.ToList();
+
+                            // Check if the List<Stratification> exists and instantiate it if not
+                            if (topic.Themes[i].Tabs[j].Stratifications == null)
+                            {
+                                topic.Themes[i].Tabs[j].Stratifications = new List<Tab_Stratification>();
+                            }
+                            topic.Themes[i].Tabs[j].Stratifications = _context.Config_Tab_Stratification_Test.Where(stratification => stratification.Tab_ID == tabs[j].Tab_ID)?.ToList();
+                            
                         }
                         #endregion
 

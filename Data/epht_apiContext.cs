@@ -41,5 +41,7 @@ namespace epht_api.Data
         public DbSet<epht_api.Models.Tab_ChartDataSet> Config_Tab_ChartDataSet_Test { get; set; }
 
         public DbSet<epht_api.Models.Tab_DefaultSetName> Config_Tab_DefaultSetName_Test { get; set; }
+
+        public DbSet<epht_api.Models.Tab_Stratification> Config_Tab_Stratification_Test { get; set; }
     }
 }
