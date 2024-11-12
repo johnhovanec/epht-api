@@ -15,7 +15,7 @@ namespace epht_api.Models
         public string TableTitle { get; set; }
 
         [NotMapped]
-        public List<MapSet_Outfield> Outfields { get; set; }
+        public List<string> Outfields { get; set; }
         [NotMapped]
         public List<MapSet_ColumnHeader> ColumnHeaders { get; set; }
         [NotMapped]

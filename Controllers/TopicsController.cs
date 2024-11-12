@@ -102,14 +102,14 @@ namespace epht_api.Controllers
                             {
                                 topic.Themes[i].Tabs[j].ChartDataSets = new List<string>();
                             }
-                            topic.Themes[i].Tabs[j].ChartDataSets = _context.Config_Tab_ChartDataSet_Test.Where(chartDataSet => chartDataSet.Tab_ID == tabs[j].Tab_ID).Select(s => s.SetName)?.ToList();
+                            topic.Themes[i].Tabs[j].ChartDataSets = _context.Config_Tab_ChartDataSet_Test.Where(chartDataSet => chartDataSet.Tab_ID == tabs[j].Tab_ID).Select(chartDataSet => chartDataSet.SetName)?.ToList();
 
                             // Check if the List<Tab_DefaultSetName> exists and instantiate it if not
                             if (topic.Themes[i].Tabs[j].DefaultSetNames == null)
                             {
                                 topic.Themes[i].Tabs[j].DefaultSetNames = new List<string>();
                             }
-                            topic.Themes[i].Tabs[j].DefaultSetNames = _context.Config_Tab_DefaultSetName_Test.Where(defaultSetName => defaultSetName.Tab_ID == tabs[j].Tab_ID).Select(s => s.SetName)?.ToList();
+                            topic.Themes[i].Tabs[j].DefaultSetNames = _context.Config_Tab_DefaultSetName_Test.Where(defaultSetName => defaultSetName.Tab_ID == tabs[j].Tab_ID).Select(defaultSetName => defaultSetName.SetName)?.ToList();
 
                             // Check if the List<Stratification> exists and instantiate it if not
                             if (topic.Themes[i].Tabs[j].Stratifications == null)
@@ -152,9 +152,9 @@ namespace epht_api.Controllers
                                     // Check List<MapSet_Outfield> exists and instantiate it if not
                                     if (topic.Themes[i].Tabs[j].MapSets[k].Outfields == null)
                                     {
-                                        topic.Themes[i].Tabs[j].MapSets[k].Outfields = new List<MapSet_Outfield>();
+                                        topic.Themes[i].Tabs[j].MapSets[k].Outfields = new List<string>();
                                     }
-                                    topic.Themes[i].Tabs[j].MapSets[k].Outfields = _context.Config_MapSet_Outfield_Test.Where(outfield => outfield.MapSet_ID == mapSets[k].MapSet_ID)?.ToList();
+                                    topic.Themes[i].Tabs[j].MapSets[k].Outfields = _context.Config_MapSet_Outfield_Test.Where(outfield => outfield.MapSet_ID == mapSets[k].MapSet_ID).Select(outfield => outfield.OutFieldName)?.ToList();
 
                                     // Check List<MapSet_ColumnHeaders> exists and instantiate it if not
                                     if (topic.Themes[i].Tabs[j].MapSets[k].ColumnHeaders == null)
