@@ -29,6 +29,7 @@ namespace epht_api.Models
         public string XAxisLabel { get; set; }
         public string Url { get; set; }
         public string TableTitle { get; set; }
+        public bool Stratifiable { get; set; }
         [NotMapped]
         public List<Tab_ChartConfig> ChartConfigs { get; set; }
         [NotMapped]
