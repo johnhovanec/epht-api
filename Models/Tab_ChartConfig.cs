@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace epht_api.Models
 {
     public class Tab_ChartConfig
     {
         [Key]
+        [JsonIgnore]
         public int ChartConfig_ID { get; set; }
         [ForeignKey("Tab_ID")]
+        [JsonIgnore]
         public int Tab_ID { get; set; }
         public string Label { get; set; }
         public string SetName { get; set; }

@@ -7,8 +7,10 @@ namespace epht_api.Models
     public class SetLayer_DrawingInfo
     {   
         [Key]
+        [JsonIgnore]
         public int DrawingInfo_ID { get; set; }
         [ForeignKey("SetLayer_ID")]
+        [JsonIgnore]
         public int SetLayer_ID { get; set; }
         [JsonIgnore]
         public string RendererType { get; set; }

@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace epht_api.Models
 {
     public class Tab
     {
         [Key]
+        [JsonIgnore]
         public int Tab_ID { get; set; }
         [ForeignKey("Theme_ID")]
+        [JsonIgnore]
         public int Theme_ID { get; set; }
         public string TabTitle { get; set; }
         public string TabPath { get; set; }

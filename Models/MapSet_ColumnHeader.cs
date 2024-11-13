@@ -1,13 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace epht_api.Models
 {
     public class MapSet_ColumnHeader
     {
         [Key]
+        [JsonIgnore]
         public int ColumnHeader_ID { get; set; }
         [ForeignKey("MapSet_ID")]
+        [JsonIgnore]
         public int MapSet_ID { get; set; }
         public string Field { get; set; }
         public string HeaderName { get; set; }

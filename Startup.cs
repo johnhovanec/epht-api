@@ -28,6 +28,8 @@ namespace epht_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // This will remove all null values from the JSON response
             services.AddControllers().AddJsonOptions(options => {
                 options.JsonSerializerOptions.IgnoreNullValues = true;
             });
