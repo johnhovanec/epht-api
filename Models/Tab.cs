@@ -14,6 +14,7 @@ namespace epht_api.Models
         public string TabPath { get; set; }
         public string ContentType { get; set; }
         public string ExportTitle { get; set; }
+        public string ExportSubtitle { get; set; }
         public string ChartType { get; set; }
         public bool Selectable { get; set; }
         public string Baseline { get; set; }
@@ -22,6 +23,7 @@ namespace epht_api.Models
         public string InfoID { get; set; }
         public string InfoSubtitle { get; set; }
         public string ChartTitle { get; set; }
+        public string ChartSubtitle { get; set; }
         public bool DisplayChartTitle { get; set; }
         public string ChartYAxisField { get; set; }
         public bool DisplayChartDiscontinuityGraphic { get; set; }
@@ -43,6 +45,6 @@ namespace epht_api.Models
         [NotMapped]
         public List<Tab_Stratification> Stratifications { get; set; }
         [NotMapped]
-        public List<Tab_ChartColumnHeader> ColumnHeaders { get; set; }
+        public List<Tab_ColumnHeader> ColumnHeaders { get; set; }
     }
 }

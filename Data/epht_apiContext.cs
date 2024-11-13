@@ -44,6 +44,6 @@ namespace epht_api.Data
 
         public DbSet<epht_api.Models.Tab_Stratification> Config_Tab_Stratification_Test { get; set; }
 
-        public DbSet<epht_api.Models.Tab_ChartColumnHeader> Config_Tab_ChartColumnHeader_Test { get; set; }
+        public DbSet<epht_api.Models.Tab_ColumnHeader> Config_Tab_ColumnHeader_Test { get; set; }
     }
 }

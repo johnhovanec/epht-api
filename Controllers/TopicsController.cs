@@ -118,12 +118,12 @@ namespace epht_api.Controllers
                             }
                             topic.Themes[i].Tabs[j].Stratifications = _context.Config_Tab_Stratification_Test.Where(stratification => stratification.Tab_ID == tabs[j].Tab_ID)?.ToList();
 
-                            // Check if the List<Tab_ChartColumnHeader> exists and instantiate it if not
+                            // Check if the List<Tab_ColumnHeader> exists and instantiate it if not
                             if (topic.Themes[i].Tabs[j].ColumnHeaders == null)
                             {
-                                topic.Themes[i].Tabs[j].ColumnHeaders = new List<Tab_ChartColumnHeader>();
+                                topic.Themes[i].Tabs[j].ColumnHeaders = new List<Tab_ColumnHeader>();
                             }
-                            topic.Themes[i].Tabs[j].ColumnHeaders = _context.Config_Tab_ChartColumnHeader_Test.Where(columnHeader => columnHeader.Tab_ID == tabs[j].Tab_ID)?.ToList();
+                            topic.Themes[i].Tabs[j].ColumnHeaders = _context.Config_Tab_ColumnHeader_Test.Where(columnHeader => columnHeader.Tab_ID == tabs[j].Tab_ID)?.ToList();
                         }
                         #endregion
 

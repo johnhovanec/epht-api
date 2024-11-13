@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace epht_api.Models
 {
-    public class Tab_ChartColumnHeader
+    public class Tab_ColumnHeader
     {
         [Key]
         [JsonIgnore]
