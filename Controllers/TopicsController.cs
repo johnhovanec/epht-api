@@ -241,6 +241,25 @@ namespace epht_api.Controllers
                             }
                         }
                         #endregion
+
+                        #region TableContent
+                        if (topic.Themes[i].Tabs[j].ContentType == "table")
+                        {
+                            // Check if the List<Tab_ColumnHeader> exists and instantiate it if not
+                            if (topic.Themes[i].Tabs[j].ColumnHeaders == null)
+                            {
+                                topic.Themes[i].Tabs[j].ColumnHeaders = new List<Tab_ColumnHeader>();
+                            }
+                            topic.Themes[i].Tabs[j].ColumnHeaders = _context.Config_Tab_ColumnHeader_Test.Where(columnHeader => columnHeader.Tab_ID == tabs[j].Tab_ID)?.ToList();
+
+                            // Check if the List<Stratification> exists and instantiate it if not
+                            if (topic.Themes[i].Tabs[j].Stratifications == null)
+                            {
+                                topic.Themes[i].Tabs[j].Stratifications = new List<Tab_Stratification>();
+                            }
+                            topic.Themes[i].Tabs[j].Stratifications = _context.Config_Tab_Stratification_Test.Where(stratification => stratification.Tab_ID == tabs[j].Tab_ID)?.ToList();
+                        }
+                        #endregion
                     }
                 }
             }
