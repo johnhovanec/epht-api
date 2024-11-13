@@ -28,6 +28,9 @@ namespace epht_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddControllers().AddJsonOptions(options => {
+                options.JsonSerializerOptions.IgnoreNullValues = true;
+            });
             services.AddSwaggerGen();
 
             services.AddDbContext<epht_apiContext>(options =>
