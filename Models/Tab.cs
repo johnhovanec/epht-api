@@ -36,6 +36,10 @@ namespace epht_api.Models
         public string TableTitle { get; set; }
         public string TableSubtitle { get; set; }
         public bool Stratifiable { get; set; }
+        public bool defaultTab { get; set; }            // NCDM specific
+        public string textHeader { get; set; }          // NCDM specific
+        public string textSubheading { get; set; }      // NCDM specific
+        public string textBody { get; set; }            // NCDM specific
         [NotMapped]
         public List<Tab_ChartConfig> ChartConfigs { get; set; }
         [NotMapped]
