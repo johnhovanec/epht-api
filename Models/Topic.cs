@@ -18,6 +18,7 @@ namespace epht_api.Models
         public string CountySuppressionRulePopMin { get; set; }
         public string SubCountySuppressionRuleRange { get; set; }
         public string SubCountySuppressionRulePopMin { get; set; }
+        public bool OmitNcdmData { get; set; }
         [NotMapped]
         public List<Theme>Themes { get; set; }
     }
