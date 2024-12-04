@@ -26,11 +26,12 @@ namespace epht_api.Controllers
             return await _context.Config_Topic_Test.ToListAsync();
         }
 
-        // GET: api/Topics/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Topic>> GetTopic(int id)
+        // GET: api/Topics/birthDefects
+        [HttpGet("{topicPath}")]
+        public async Task<ActionResult<Topic>> GetTopic(string topicPath)
         {
-            var topic = await _context.Config_Topic_Test.FindAsync(id);
+            //var topic = await _context.Config_Topic_Test.FindAsync(topicPath);
+            var topic = _context.Config_Topic_Test.FirstOrDefault(topic => topic.TopicPath == topicPath);
 
             if (topic == null)
             {
@@ -40,13 +41,13 @@ namespace epht_api.Controllers
             return topic;
         }
 
-        // GET: api/Topics/25/GetFullConfig
+        // GET: api/Topics/birthDefects/GetFullConfig
         // This endpoint reconstructs the topic.js structure for a given topic ID
-        [HttpGet("{id}/GetFullConfig")]
-        public async Task<ActionResult<Topic>> GetFullConfig(int id)
+        [HttpGet("{topicPath}/GetFullConfig")]
+        public async Task<ActionResult<Topic>> GetFullConfig(string topicPath)
         {
             // Find the topic by id
-            var topic = await _context.Config_Topic_Test.FindAsync(id);
+            var topic = _context.Config_Topic_Test.FirstOrDefault(topic => topic.TopicPath == topicPath);
 
             if (topic == null)
             {
@@ -55,7 +56,7 @@ namespace epht_api.Controllers
 
             // Create a list of themes and inserts them into the topic
             var themeQuery = _context.Config_Theme_Test.AsQueryable();
-            topic.Themes = (List<Theme>)themeQuery.Where(x => x.Topic_ID == id).ToList();
+            topic.Themes = (List<Theme>)themeQuery.Where(x => x.Topic_ID == topic.Topic_ID).ToList();
 
             // Loop through each theme and insert the related tabs
             for (int i = 0; i < topic.Themes.Count; i++)
