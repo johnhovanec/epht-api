@@ -19,7 +19,19 @@ namespace epht_api.Models
         public string SubCountySuppressionRuleRange { get; set; }
         public string SubCountySuppressionRulePopMin { get; set; }
         public bool OmitNcdmData { get; set; }
+        public string ParentTopic { get; set; }
         [NotMapped]
         public List<Theme>Themes { get; set; }
+    }
+
+    public class MinimalTopic
+    {
+        public int Topic_ID { get; set; }
+        public string TopicTitle { get; set; }
+        public string TopicPath { get; set; }
+        public string Category { get; set; }
+        public string ParentTopic { get; set; }
+        [NotMapped]
+        public List<MinimalTopic> Subtopics { get; set; }
     }
 }

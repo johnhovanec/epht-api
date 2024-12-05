@@ -20,18 +20,18 @@ namespace epht_api.Controllers
         }
 
         // GET: api/Topics
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Topic>>> GetTopic()
+        [HttpGet("/api/topics")]
+        public async Task<ActionResult<IEnumerable<Topic>>> GetAllTopics()
         {
             return await _context.Config_Topic_Test.ToListAsync();
         }
 
         // GET: api/Topics/birthDefects
-        [HttpGet("{topicPath}")]
+        [HttpGet("/api/topics/{topicPath}")]
         public async Task<ActionResult<Topic>> GetTopic(string topicPath)
         {
             //var topic = await _context.Config_Topic_Test.FindAsync(topicPath);
-            var topic = _context.Config_Topic_Test.FirstOrDefault(topic => topic.TopicPath == topicPath);
+            var topic = await _context.Config_Topic_Test.FirstOrDefaultAsync(topic => topic.TopicPath == topicPath);
 
             if (topic == null)
             {
@@ -40,14 +40,49 @@ namespace epht_api.Controllers
 
             return topic;
         }
+       
+        [HttpGet("/api/topics/MinimalConfig")]
+        public async Task<ActionResult<IEnumerable<MinimalTopic>>> GetMinimalConfig()
+        {
+            var mTopics = await (from c in _context.Config_Topic_Test
+                                 where c.ParentTopic == null
+                                 select new MinimalTopic()
+                                 {
+                                     Topic_ID = c.Topic_ID,
+                                     TopicTitle = c.TopicTitle,
+                                     TopicPath = c.TopicPath,
+                                     Category = c.Category,
+                                     ParentTopic = c.ParentTopic,
+                                     Subtopics = (from t in _context.Config_Topic_Test
+                                                  where t.ParentTopic == c.TopicPath
+                                                  select new MinimalTopic()
+                                                  {
+                                                      Topic_ID = t.Topic_ID,
+                                                      TopicTitle = t.TopicTitle
+                                                  }).Any() // Check if the subquery has any results
+                                                  ? (from subtopic in _context.Config_Topic_Test
+                                                     where subtopic.ParentTopic == c.TopicPath
+                                                     select new MinimalTopic()
+                                                     {
+                                                         Topic_ID = subtopic.Topic_ID,
+                                                         TopicTitle = subtopic.TopicTitle,
+                                                         TopicPath = subtopic.TopicPath,
+                                                         Category = subtopic.Category,
+                                                         ParentTopic = subtopic.ParentTopic
+                                                     }).ToList() // Materialize only if there are results
+                                                  : null // Set to null if no results so it is omitted from the JSON result
+                                 }).ToListAsync();
+
+            return Ok(mTopics);
+        }
 
         // GET: api/Topics/birthDefects/GetFullConfig
         // This endpoint reconstructs the topic.js structure for a given topic ID
-        [HttpGet("{topicPath}/GetFullConfig")]
+        [HttpGet("/api/{topicPath}/FullConfig")]
         public async Task<ActionResult<Topic>> GetFullConfig(string topicPath)
         {
             // Find the topic by id
-            var topic = _context.Config_Topic_Test.FirstOrDefault(topic => topic.TopicPath == topicPath);
+            var topic = await _context.Config_Topic_Test.FirstOrDefaultAsync(topic => topic.TopicPath == topicPath);
 
             if (topic == null)
             {
