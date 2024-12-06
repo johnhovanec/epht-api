@@ -1,12 +1,8 @@
-﻿using epht_api.Converters;
-using epht_api.Data;
-using epht_api.DTO;
+﻿using epht_api.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Data;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace epht_api.Controllers
