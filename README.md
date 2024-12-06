@@ -19,4 +19,8 @@ Swagger provides a GUI which provides an easy way to interact with an API and is
 ## App Settings
 appsettings.json is currently added to the .gitignore until a credential management method is setup.  
 Reach out to a member of the CGIS development team for a copy of this file if you are looking to  
-setup and run this project.
+setup and run this project.  
+ 
+However, a sample file named sample.appsettings.json is included in the repo. This file lacks the  
+database username and password and can be used to create the appsettings.json file once those credentials  
+are included.
