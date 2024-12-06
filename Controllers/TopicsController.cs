@@ -27,7 +27,7 @@ namespace epht_api.Controllers
         }
 
         // GET: api/Topics/birthDefects
-        [HttpGet("/api/topics/{topicPath}")]
+        [HttpGet("/api/topics/{topicUrlPath}")]
         public async Task<ActionResult<Topic>> GetTopic(string topicPath)
         {
             var topic = await _context.Config_Topic_Test.FirstOrDefaultAsync(topic => topic.TopicUrlPath == topicPath);
@@ -39,7 +39,9 @@ namespace epht_api.Controllers
 
             return topic;
         }
-       
+
+        // Minimal topic config fetch intended for home page navigation
+        // GET: api/Topics/MinimalConfig
         [HttpGet("/api/topics/MinimalConfig")]
         public async Task<ActionResult<IEnumerable<MinimalTopic>>> GetMinimalConfig()
         {
@@ -74,13 +76,12 @@ namespace epht_api.Controllers
             return minimalTopics;
         }
 
-        // GET: api/Topics/birthDefects/GetFullConfig
-        // This endpoint reconstructs the topic.js structure for a given topic ID
-        [HttpGet("/api/topics/{topicPath}/FullConfig")]
-        public async Task<ActionResult<Topic>> GetFullConfig(string topicPath)
+        // Full topic config intended for per topic fetch
+        // GET: api/Topics/BirthDefects/GetFullConfig
+        [HttpGet("/api/topics/{topicUrlPath}/FullConfig")]
+        public async Task<ActionResult<Topic>> GetFullConfig(string topicUrlPath)
         {
-            // Find the topic by id
-            var topic = await _context.Config_Topic_Test.FirstOrDefaultAsync(topic => topic.TopicUrlPath == topicPath);
+            var topic = await _context.Config_Topic_Test.FirstOrDefaultAsync(topic => topic.TopicUrlPath == topicUrlPath);
 
             if (topic == null)
             {
