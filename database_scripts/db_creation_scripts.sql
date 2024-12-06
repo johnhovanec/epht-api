@@ -16,7 +16,7 @@ CREATE TABLE [epht].[Config_Topic_Test](
 	topic_ID [int] NOT NULL,
 	--[topic_Title] [nvarchar](255) NULL,   -- note that topics.js's topicPath == Topic_Title in the original Config_Topic table 
 	topicTitle [nvarchar](255) NULL,
-	topicPath [nvarchar](255) NULL,
+	topicUrlPath [nvarchar](255) NULL,
 	category [nvarchar](255) NULL,
 	defaultTabPath [nvarchar](255) NULL,
 	overview [nvarchar](4000) NULL,

@@ -9,7 +9,7 @@ namespace epht_api.Models
         [Key]
         public int Topic_ID { get; set; }
         public string TopicTitle { get; set; }
-        public string TopicPath { get; set; }
+        public string TopicUrlPath { get; set; }
         public string Category { get; set; }
         public string DefaultTabPath { get; set; }
         public string Overview { get; set; }
@@ -28,7 +28,7 @@ namespace epht_api.Models
     {
         public int Topic_ID { get; set; }
         public string TopicTitle { get; set; }
-        public string TopicPath { get; set; }
+        public string TopicUrlPath { get; set; }
         public string Category { get; set; }
         public string ParentTopic { get; set; }
         [NotMapped]

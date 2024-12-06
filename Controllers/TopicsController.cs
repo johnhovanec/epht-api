@@ -31,7 +31,7 @@ namespace epht_api.Controllers
         public async Task<ActionResult<Topic>> GetTopic(string topicPath)
         {
             //var topic = await _context.Config_Topic_Test.FindAsync(topicPath);
-            var topic = await _context.Config_Topic_Test.FirstOrDefaultAsync(topic => topic.TopicPath == topicPath);
+            var topic = await _context.Config_Topic_Test.FirstOrDefaultAsync(topic => topic.TopicUrlPath == topicPath);
 
             if (topic == null)
             {
@@ -50,23 +50,23 @@ namespace epht_api.Controllers
                                  {
                                      Topic_ID = c.Topic_ID,
                                      TopicTitle = c.TopicTitle,
-                                     TopicPath = c.TopicPath,
+                                     TopicUrlPath = c.TopicUrlPath,
                                      Category = c.Category,
                                      ParentTopic = c.ParentTopic,
                                      Subtopics = (from t in _context.Config_Topic_Test
-                                                  where t.ParentTopic == c.TopicPath
+                                                  where t.ParentTopic == c.TopicUrlPath
                                                   select new MinimalTopic()
                                                   {
                                                       Topic_ID = t.Topic_ID,
                                                       TopicTitle = t.TopicTitle
                                                   }).Any() // Check if the subquery has any results
                                                   ? (from subtopic in _context.Config_Topic_Test
-                                                     where subtopic.ParentTopic == c.TopicPath
+                                                     where subtopic.ParentTopic == c.TopicUrlPath
                                                      select new MinimalTopic()
                                                      {
                                                          Topic_ID = subtopic.Topic_ID,
                                                          TopicTitle = subtopic.TopicTitle,
-                                                         TopicPath = subtopic.TopicPath,
+                                                         TopicUrlPath = subtopic.TopicUrlPath,
                                                          Category = subtopic.Category,
                                                          ParentTopic = subtopic.ParentTopic
                                                      }).ToList() // Materialize only if there are results
@@ -78,11 +78,11 @@ namespace epht_api.Controllers
 
         // GET: api/Topics/birthDefects/GetFullConfig
         // This endpoint reconstructs the topic.js structure for a given topic ID
-        [HttpGet("/api/{topicPath}/FullConfig")]
+        [HttpGet("/api/topics/{topicPath}/FullConfig")]
         public async Task<ActionResult<Topic>> GetFullConfig(string topicPath)
         {
             // Find the topic by id
-            var topic = await _context.Config_Topic_Test.FirstOrDefaultAsync(topic => topic.TopicPath == topicPath);
+            var topic = await _context.Config_Topic_Test.FirstOrDefaultAsync(topic => topic.TopicUrlPath == topicPath);
 
             if (topic == null)
             {
