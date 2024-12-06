@@ -11,21 +11,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-CREATE TABLE [epht].[Config_Topic_Test](
 -- Note that table columns are named to match the existing application object structure
-	topic_ID [int] NOT NULL,
-	--[topic_Title] [nvarchar](255) NULL,   -- note that topics.js's topicPath == Topic_Title in the original Config_Topic table 
-	topicTitle [nvarchar](255) NULL,
-	topicUrlPath [nvarchar](255) NULL,
-	category [nvarchar](255) NULL,
-	defaultTabPath [nvarchar](255) NULL,
-	overview [nvarchar](4000) NULL,
-	aboutData [nvarchar](4000) NULL,
-	countySuppressionRuleRange [nvarchar](500) NULL,
-	countySuppressionRulePopMin [nvarchar](500) NULL,
-	subCountySuppressionRuleRange [nvarchar](500) NULL,
-	subCountySuppressionRulePopMin [nvarchar](500) NULL,
-	
+CREATE TABLE [epht].[Config_Topic_Test](
+	[topic_ID] [int] NOT NULL,
+	[topicTitle] [nvarchar](255) NULL,
+	[topicUrlPath] [nvarchar](255) NULL,
+	[category] [nvarchar](255) NULL,
+	[defaultTabPath] [nvarchar](255) NULL,
+	[overview] [nvarchar](4000) NULL,
+	[aboutData] [nvarchar](4000) NULL,
+	[countySuppressionRuleRange] [nvarchar](500) NULL,
+	[countySuppressionRulePopMin] [nvarchar](500) NULL,
+	[subCountySuppressionRuleRange] [nvarchar](500) NULL,
+	[subCountySuppressionRulePopMin] [nvarchar](500) NULL,
+	[omitNcdmData] [bit] NULL,
+	[parentTopic] [nvarchar](255) NULL,
  CONSTRAINT [PK_Config_Topic_Test_ID] PRIMARY KEY CLUSTERED 
 (
 	[topic_ID] ASC
@@ -81,29 +81,35 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [epht].[Config_Tab_Test](
--- Note that table columns are named to match the existing application object structure
-	tab_ID [int] IDENTITY(1,1) NOT NULL,
-	theme_ID [int]  FOREIGN KEY REFERENCES  epht.Config_Theme_Test(theme_ID),  -- FK to Config_Theme_Test table
-	tabTitle [nvarchar](255) NULL,
-	tabPath [nvarchar](255) NULL, 
-	contentType [nvarchar](50) NULL,
-	exportTitle [nvarchar](1000) NULL,
-	chartType [nvarchar](255) NULL,
-	selectable [bit] NULL,
-	baseline [nvarchar](255) NULL, 
-	defaultSelection [nvarchar](255) NULL, 
-	infoTitle [nvarchar](500) NULL,		-- was formerly part of the "info" object
-	infoId [nvarchar](500) NULL,		-- was formerly part of the "info" object
-	infoSubtitle [nvarchar](500) NULL,	-- was formerly part of the "info" object
-	chartTitle [nvarchar](500) NULL,
-	displayChartTitle [bit] NULL,
-	chartYAxisField [nvarchar](500) NULL,
-	displayChartDiscontinuityGraphic [bit] NULL,
-	displayXAxisLabel [bit] NULL,
-	xAxisLabel [nvarchar](500) NULL,
+	[tab_ID] [int] IDENTITY(1,1) NOT NULL,
+	[theme_ID] [int] NULL,
+	[tabTitle] [nvarchar](255) NULL,
+	[tabPath] [nvarchar](255) NULL,
+	[contentType] [nvarchar](50) NULL,
+	[exportTitle] [nvarchar](1000) NULL,
+	[chartType] [nvarchar](255) NULL,
+	[selectable] [bit] NULL,
+	[baseline] [nvarchar](255) NULL,
+	[defaultSelection] [nvarchar](255) NULL,
+	[infoTitle] [nvarchar](500) NULL,
+	[infoID] [nvarchar](500) NULL,
+	[infoSubtitle] [nvarchar](500) NULL,
+	[chartTitle] [nvarchar](500) NULL,
+	[displayChartTitle] [bit] NULL,
+	[chartYAxisField] [nvarchar](500) NULL,
+	[displayChartDiscontinuityGraphic] [bit] NULL,
+	[displayXAxisLabel] [bit] NULL,
+	[xAxisLabel] [nvarchar](500) NULL,
 	[url] [nvarchar](4000) NULL,
-	tableTitle [nvarchar](1000) NULL
-
+	[tableTitle] [nvarchar](1000) NULL,
+	[stratifiable] [bit] NULL,
+	[chartSubtitle] [nvarchar](500) NULL,
+	[tableSubtitle] [nvarchar](1000) NULL,
+	[defaultTab] [bit] NULL,
+	[textHeader] [nvarchar](1000) NULL,
+	[textSubheading] [nvarchar](1000) NULL,
+	[textBody] [nvarchar](4000) NULL,
+	[exportSubtitle] [nvarchar](1000) NULL,
  CONSTRAINT [PK_Config_Tab_Test_ID] PRIMARY KEY CLUSTERED 
 (
 	[tab_ID] ASC
@@ -114,6 +120,10 @@ CREATE TABLE [epht].[Config_Tab_Test](
 	[tabPath] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+
+ALTER TABLE [epht].[Config_Tab_Test]  WITH CHECK ADD FOREIGN KEY([theme_ID])
+REFERENCES [epht].[Config_Theme_Test] ([theme_ID])
 GO
 
 
