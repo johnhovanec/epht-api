@@ -20,17 +20,17 @@ namespace epht_api.Controllers
         }
 
         // GET: api/Topics
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Topic>>> GetTopic()
+        [HttpGet("/api/topics")]
+        public async Task<ActionResult<IEnumerable<Topic>>> GetAllTopics()
         {
             return await _context.Config_Topic_Test.ToListAsync();
         }
 
-        // GET: api/Topics/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Topic>> GetTopic(int id)
+        // GET: api/Topics/birthDefects
+        [HttpGet("/api/topics/{topicUrlPath}")]
+        public async Task<ActionResult<Topic>> GetTopic(string topicPath)
         {
-            var topic = await _context.Config_Topic_Test.FindAsync(id);
+            var topic = await _context.Config_Topic_Test.FirstOrDefaultAsync(topic => topic.TopicUrlPath == topicPath);
 
             if (topic == null)
             {
@@ -40,13 +40,48 @@ namespace epht_api.Controllers
             return topic;
         }
 
-        // GET: api/Topics/25/GetFullConfig
-        // This endpoint reconstructs the topic.js structure for a given topic ID
-        [HttpGet("{id}/GetFullConfig")]
-        public async Task<ActionResult<Topic>> GetFullConfig(int id)
+        // Minimal topic config fetch intended for home page navigation
+        // GET: api/Topics/MinimalConfig
+        [HttpGet("/api/topics/MinimalConfig")]
+        public async Task<ActionResult<IEnumerable<MinimalTopic>>> GetMinimalConfig()
         {
-            // Find the topic by id
-            var topic = await _context.Config_Topic_Test.FindAsync(id);
+            var minimalTopics = await (from topics in _context.Config_Topic_Test
+                                 where topics.ParentTopic == null
+                                 select new MinimalTopic()
+                                 {
+                                     Topic_ID = topics.Topic_ID,
+                                     TopicTitle = topics.TopicTitle,
+                                     TopicUrlPath = topics.TopicUrlPath,
+                                     Category = topics.Category,
+                                     ParentTopic = topics.ParentTopic,
+                                     Subtopics = (from subtopic in _context.Config_Topic_Test
+                                                  where subtopic.ParentTopic == topics.TopicUrlPath
+                                                  select new
+                                                  {
+                                                      Topic_ID = subtopic.Topic_ID,
+                                                  }).Any() // Check if the subquery has any results, if so return them
+                                                  ? (from subtopic in _context.Config_Topic_Test
+                                                     where subtopic.ParentTopic == topics.TopicUrlPath
+                                                     select new MinimalTopic()
+                                                     {
+                                                         Topic_ID = subtopic.Topic_ID,
+                                                         TopicTitle = subtopic.TopicTitle,
+                                                         TopicUrlPath = subtopic.TopicUrlPath,
+                                                         Category = subtopic.Category,
+                                                         ParentTopic = subtopic.ParentTopic
+                                                     }).ToList() // Materialize only if there are results
+                                                  : null // Set to null if no results so it is omitted from the JSON result
+                                 }).ToListAsync();
+
+            return minimalTopics;
+        }
+
+        // Full topic config intended for per topic fetch
+        // GET: api/Topics/BirthDefects/GetFullConfig
+        [HttpGet("/api/topics/{topicUrlPath}/FullConfig")]
+        public async Task<ActionResult<Topic>> GetFullConfig(string topicUrlPath)
+        {
+            var topic = await _context.Config_Topic_Test.FirstOrDefaultAsync(topic => topic.TopicUrlPath == topicUrlPath);
 
             if (topic == null)
             {
@@ -55,7 +90,7 @@ namespace epht_api.Controllers
 
             // Create a list of themes and inserts them into the topic
             var themeQuery = _context.Config_Theme_Test.AsQueryable();
-            topic.Themes = (List<Theme>)themeQuery.Where(x => x.Topic_ID == id).ToList();
+            topic.Themes = (List<Theme>)themeQuery.Where(x => x.Topic_ID == topic.Topic_ID).ToList();
 
             // Loop through each theme and insert the related tabs
             for (int i = 0; i < topic.Themes.Count; i++)

@@ -1,0 +1,14 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "ConnectionStrings": {
+    "ProdConnection": "Server=PROD_SERVER_NAME;Database=DB_NAME;User Id=********;Password=********;Integrated Security=false;MultipleActiveResultSets=true;",
+    "DevConnection": "Server=MDHEPHTDBDev2;Database=MDHEPHT_Test;User Id=********;Password=********;Integrated Security=false;MultipleActiveResultSets=true;"
+  },
+  "AllowedHosts": "*"
+}
