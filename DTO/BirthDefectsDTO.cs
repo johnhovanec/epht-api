@@ -1,5 +1,4 @@
-﻿using epht_api.Converters;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace epht_api.DTO
 {
