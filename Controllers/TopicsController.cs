@@ -8,7 +8,7 @@ using epht_api.Models;
 
 namespace epht_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/api/[controller]")]
     [ApiController]
     public class TopicsController : ControllerBase
     {
