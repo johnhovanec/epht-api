@@ -31,9 +31,11 @@ namespace epht_api.Models
         public bool DisplayChartTitle { get; set; }                     // Chart specific
         public bool DisplayChartSubtitle { get; set; }                  // Chart specific
         public bool DisplayYAxisLabel { get; set; }                     // Chart specific
+        public string YAxisLabel { get; set; }                          // Chart specific
         public string ChartYAxisField { get; set; }                     // Chart specific
         public bool DisplayChartDiscontinuityGraphic { get; set; }      // Chart specific
         public bool DisplayXAxisLabel { get; set; }                     // Chart specific
+        public string ChartXAxisField { get; set; }                     // Chart specific
         public string XAxisLabel { get; set; }                          // Chart specific
         public string Url { get; set; }
         public string TableTitle { get; set; }
