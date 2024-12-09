@@ -18,28 +18,31 @@ namespace epht_api.Models
         public string ContentType { get; set; }
         public string ExportTitle { get; set; }
         public string ExportSubtitle { get; set; }
-        public string ChartType { get; set; }
+        public string ChartType { get; set; }                           // Chart specific
         public bool Selectable { get; set; }
         public string Baseline { get; set; }
         public string DefaultSelection { get; set; }
         public string InfoTitle { get; set; }
         public string InfoID { get; set; }
         public string InfoSubtitle { get; set; }
-        public string ChartTitle { get; set; }
-        public string ChartSubtitle { get; set; }
-        public bool DisplayChartTitle { get; set; }
-        public string ChartYAxisField { get; set; }
-        public bool DisplayChartDiscontinuityGraphic { get; set; }
-        public bool DisplayXAxisLabel { get; set; }
-        public string XAxisLabel { get; set; }
+        public string ContentTitle { get; set; }                        // Map specific
+        public string ChartTitle { get; set; }                          // Chart specific
+        public string ChartSubtitle { get; set; }                       // Chart specific
+        public bool DisplayChartTitle { get; set; }                     // Chart specific
+        public bool DisplayChartSubtitle { get; set; }                  // Chart specific
+        public bool DisplayYAxisLabel { get; set; }                     // Chart specific
+        public string ChartYAxisField { get; set; }                     // Chart specific
+        public bool DisplayChartDiscontinuityGraphic { get; set; }      // Chart specific
+        public bool DisplayXAxisLabel { get; set; }                     // Chart specific
+        public string XAxisLabel { get; set; }                          // Chart specific
         public string Url { get; set; }
         public string TableTitle { get; set; }
         public string TableSubtitle { get; set; }
         public bool Stratifiable { get; set; }
-        public bool defaultTab { get; set; }            // NCDM specific
-        public string textHeader { get; set; }          // NCDM specific
-        public string textSubheading { get; set; }      // NCDM specific
-        public string textBody { get; set; }            // NCDM specific
+        public bool DefaultTab { get; set; }                            // NCDM specific
+        public string TextHeader { get; set; }                          // NCDM specific
+        public string TextSubheading { get; set; }                      // NCDM specific
+        public string TextBody { get; set; }                            // NCDM specific
         [NotMapped]
         public List<Tab_ChartConfig> ChartConfigs { get; set; }
         [NotMapped]
