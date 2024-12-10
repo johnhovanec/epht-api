@@ -37,6 +37,7 @@ namespace epht_api.Models
         public bool DisplayXAxisLabel { get; set; }                     // Chart specific
         public string ChartXAxisField { get; set; }                     // Chart specific
         public string XAxisLabel { get; set; }                          // Chart specific
+        public string DefaultStratification { get; set; }               // Chart specific
         public string Url { get; set; }
         public string TableTitle { get; set; }
         public string TableSubtitle { get; set; }
