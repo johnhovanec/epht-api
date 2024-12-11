@@ -19,12 +19,12 @@ namespace epht_api.Models
         public string ExportTitle { get; set; }
         public string ExportSubtitle { get; set; }
         public string ChartType { get; set; }                           // Chart specific
-        public bool Selectable { get; set; }
-        public string Baseline { get; set; }
-        public string DefaultSelection { get; set; }
-        public string InfoTitle { get; set; }
-        public string InfoID { get; set; }
-        public string InfoSubtitle { get; set; }
+        public bool Selectable { get; set; }                            // Chart specific
+        public string Baseline { get; set; }                            // Chart specific
+        public string DefaultSelection { get; set; }                    
+        public string InfoTitle { get; set; }                           // Chart specific
+        public string InfoID { get; set; }                              // Chart specific
+        public string InfoSubtitle { get; set; }                        // Chart specific
         public string ContentTitle { get; set; }                        // Map specific
         public string ChartTitle { get; set; }                          // Chart specific
         public string ChartSubtitle { get; set; }                       // Chart specific
@@ -38,10 +38,10 @@ namespace epht_api.Models
         public string ChartXAxisField { get; set; }                     // Chart specific
         public string XAxisLabel { get; set; }                          // Chart specific
         public string DefaultStratification { get; set; }               // Chart specific
-        public string Url { get; set; }
+        public string Url { get; set; }                                 // Chart specific
         public string TableTitle { get; set; }
         public string TableSubtitle { get; set; }
-        public bool Stratifiable { get; set; }
+        public bool Stratifiable { get; set; }                          // Chart specific
         public bool DefaultTab { get; set; }                            // NCDM specific
         public string TextHeader { get; set; }                          // NCDM specific
         public string TextSubheading { get; set; }                      // NCDM specific
