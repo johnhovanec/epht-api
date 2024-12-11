@@ -27,6 +27,17 @@ namespace epht_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("MyPolicy", builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000")  // Hardset for default port of client side dev server
+                           .AllowAnyMethod()                   
+                           .AllowAnyHeader();             
+                });
+            });
+
             services.AddControllers();
 
             // This will remove all null values from the JSON response
@@ -56,6 +67,8 @@ namespace epht_api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("MyPolicy");
 
             app.UseAuthorization();
 
