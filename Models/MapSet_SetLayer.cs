@@ -28,6 +28,8 @@ namespace epht_api.Models
         public bool Custom { get; set; }
         public bool IsModern { get; set; }
         public bool OmitCommunityProfile { get; set; }
+        public string Type { get; set; }
+        public string CustomStyleTitle { get; set; }
         public string Url { get; set; }
         [NotMapped]
         public SetLayer_Content Content { get; set; }
