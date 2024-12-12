@@ -14,5 +14,6 @@ namespace epht_api.Models
         public int Tab_ID { get; set; }
         public string Param { get; set; }
         public string Value { get; set; }
+        public string ValueKey { get; set; }
     }
 }
