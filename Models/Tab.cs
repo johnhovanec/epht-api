@@ -39,6 +39,7 @@ namespace epht_api.Models
         public string XAxisLabel { get; set; }                          // Chart specific
         public string DefaultStratification { get; set; }               // Chart specific
         public string Url { get; set; }                                 // Chart specific
+        public bool TimeSlider { get; set; }                            // Chart specific
         public string TableTitle { get; set; }
         public string TableSubtitle { get; set; }
         public bool Stratifiable { get; set; }                          // Chart specific
