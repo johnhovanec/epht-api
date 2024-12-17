@@ -32,13 +32,19 @@ namespace epht_api.Models
         public bool DisplayChartSubtitle { get; set; }                  // Chart specific
         public bool DisplayYAxisLabel { get; set; }                     // Chart specific
         public string YAxisLabel { get; set; }                          // Chart specific
+        public string YAxisLabelLeft { get; set; }                      // Chart specific
+        public string YAxisIdLeft { get; set; }                         // Chart specific
+        public string YAxisLabelRight { get; set; }                     // Chart specific
+        public string YAxisIdRight { get; set; }                        // Chart specific
         public string ChartYAxisField { get; set; }                     // Chart specific
         public bool DisplayChartDiscontinuityGraphic { get; set; }      // Chart specific
         public bool DisplayXAxisLabel { get; set; }                     // Chart specific
         public string ChartXAxisField { get; set; }                     // Chart specific
         public string XAxisLabel { get; set; }                          // Chart specific
         public string DefaultStratification { get; set; }               // Chart specific
-        public string Url { get; set; }                                 // Chart specific
+        public string Url { get; set; }                                 // Chart specific  
+        public bool TimeSlider { get; set; }                            // Chart specific
+        public bool HighContrastPalette { get; set; }                   // Chart specific
         public string TableTitle { get; set; }
         public string TableSubtitle { get; set; }
         public bool Stratifiable { get; set; }                          // Chart specific
