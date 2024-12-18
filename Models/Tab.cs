@@ -67,4 +67,10 @@ namespace epht_api.Models
         [NotMapped]
         public List<Tab_ColumnHeader> ColumnHeaders { get; set; }
     }
+
+    public class MinimalTab
+    {
+        public string TabTitle { get; set; }
+        public string TabPath { get; set; }
+    }
 }
