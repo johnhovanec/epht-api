@@ -58,6 +58,7 @@ namespace epht_api.Controllers
                                                {
                                                    ThemeTitle = theme.ThemeTitle,
                                                    ThemePath = theme.ThemePath,
+                                                   DefaultTabPath = theme.DefaultTabPath,
                                                    // Query the tabs for each theme
                                                    Tabs = (from tab in _context.Config_Tab_Test
                                                            where tab.Theme_ID == theme.Theme_ID
@@ -92,6 +93,7 @@ namespace epht_api.Controllers
                                                                    {
                                                                        ThemeTitle = theme.ThemeTitle,
                                                                        ThemePath = theme.ThemePath,
+                                                                       DefaultTabPath = theme.DefaultTabPath,
                                                                        // Query the tabs for each subtopic theme
                                                                        Tabs = (from tab in _context.Config_Tab_Test
                                                                                where tab.Theme_ID == theme.Theme_ID
