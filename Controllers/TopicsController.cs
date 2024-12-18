@@ -48,17 +48,35 @@ namespace epht_api.Controllers
                                  where topics.ParentTopic == null
                                  select new MinimalTopic()
                                  {
-                                     Topic_ID = topics.Topic_ID,
                                      TopicTitle = topics.TopicTitle,
                                      TopicUrlPath = topics.TopicUrlPath,
                                      Category = topics.Category,
+                                     // Query the themes for each topic
+                                     Themes = (from theme in _context.Config_Theme_Test
+                                               where theme.Topic_ID == topics.Topic_ID
+                                               select new MinimalTheme()
+                                               {
+                                                   ThemeTitle = theme.ThemeTitle,
+                                                   ThemePath = theme.ThemePath,
+                                                   // Query the tabs for each theme
+                                                   Tabs = (from tab in _context.Config_Tab_Test
+                                                           where tab.Theme_ID == theme.Theme_ID
+                                                           select new MinimalTab()
+                                                           {
+                                                               TabTitle = tab.TabTitle,
+                                                               TabPath = tab.TabPath,
+                                                               
+                                                           }).ToList()
+                                               }).ToList(),
                                      ParentTopic = topics.ParentTopic,
+                                     // Query the subtopics for each topic
                                      Subtopics = (from subtopic in _context.Config_Topic_Test
                                                   where subtopic.ParentTopic == topics.TopicUrlPath
                                                   select new
                                                   {
                                                       Topic_ID = subtopic.Topic_ID,
-                                                  }).Any() // Check if the subquery has any results, if so return them
+                                                  }).Any() // Check if the subquery has any results, if so return them in the ternary below.
+                                                  // Ternary will either return subtopic results or null if there are no subtopics for the topic
                                                   ? (from subtopic in _context.Config_Topic_Test
                                                      where subtopic.ParentTopic == topics.TopicUrlPath
                                                      select new MinimalTopic()
@@ -67,6 +85,23 @@ namespace epht_api.Controllers
                                                          TopicTitle = subtopic.TopicTitle,
                                                          TopicUrlPath = subtopic.TopicUrlPath,
                                                          Category = subtopic.Category,
+                                                         // Query the subtopic for each theme
+                                                         Themes = (from theme in _context.Config_Theme_Test
+                                                                   where theme.Topic_ID == subtopic.Topic_ID
+                                                                   select new MinimalTheme()
+                                                                   {
+                                                                       ThemeTitle = theme.ThemeTitle,
+                                                                       ThemePath = theme.ThemePath,
+                                                                       // Query the tabs for each subtopic theme
+                                                                       Tabs = (from tab in _context.Config_Tab_Test
+                                                                               where tab.Theme_ID == theme.Theme_ID
+                                                                               select new MinimalTab()
+                                                                               {
+                                                                                   TabTitle = tab.TabTitle,
+                                                                                   TabPath = tab.TabPath,
+
+                                                                               }).ToList()
+                                                                   }).ToList(),
                                                          ParentTopic = subtopic.ParentTopic
                                                      }).ToList() // Materialize only if there are results
                                                   : null // Set to null if no results so it is omitted from the JSON result
