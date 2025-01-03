@@ -8,7 +8,6 @@ using epht_api.Models;
 
 namespace epht_api.Controllers
 {
-    [Route("/api/[controller]")]
     [ApiController]
     public class TopicsController : ControllerBase
     {
@@ -20,17 +19,17 @@ namespace epht_api.Controllers
         }
 
         // GET: api/Topics
-        [HttpGet("/api/topics")]
+        [HttpGet("api/[controller]")]
         public async Task<ActionResult<IEnumerable<Topic>>> GetAllTopics()
         {
             return await _context.Config_Topic_Test.ToListAsync();
         }
 
         // GET: api/Topics/birthDefects
-        [HttpGet("/api/topics/{topicUrlPath}")]
-        public async Task<ActionResult<Topic>> GetTopic(string topicPath)
+        [HttpGet("api/[controller]/{topicUrlPath}")]
+        public async Task<ActionResult<Topic>> GetTopic(string topicUrlPath)
         {
-            var topic = await _context.Config_Topic_Test.FirstOrDefaultAsync(topic => topic.TopicUrlPath == topicPath);
+            var topic = await _context.Config_Topic_Test.FirstOrDefaultAsync(topic => topic.TopicUrlPath == topicUrlPath);
 
             if (topic == null)
             {
@@ -42,24 +41,43 @@ namespace epht_api.Controllers
 
         // Minimal topic config fetch intended for home page navigation
         // GET: api/Topics/MinimalConfig
-        [HttpGet("/api/topics/MinimalConfig")]
+        [HttpGet("api/[controller]/MinimalConfig")]
         public async Task<ActionResult<IEnumerable<MinimalTopic>>> GetMinimalConfig()
         {
             var minimalTopics = await (from topics in _context.Config_Topic_Test
                                  where topics.ParentTopic == null
                                  select new MinimalTopic()
                                  {
-                                     Topic_ID = topics.Topic_ID,
                                      TopicTitle = topics.TopicTitle,
                                      TopicUrlPath = topics.TopicUrlPath,
                                      Category = topics.Category,
+                                     // Query the themes for each topic
+                                     Themes = (from theme in _context.Config_Theme_Test
+                                               where theme.Topic_ID == topics.Topic_ID
+                                               select new MinimalTheme()
+                                               {
+                                                   ThemeTitle = theme.ThemeTitle,
+                                                   ThemePath = theme.ThemePath,
+                                                   DefaultTabPath = theme.DefaultTabPath,
+                                                   // Query the tabs for each theme
+                                                   Tabs = (from tab in _context.Config_Tab_Test
+                                                           where tab.Theme_ID == theme.Theme_ID
+                                                           select new MinimalTab()
+                                                           {
+                                                               TabTitle = tab.TabTitle,
+                                                               TabPath = tab.TabPath,
+                                                               
+                                                           }).ToList()
+                                               }).ToList(),
                                      ParentTopic = topics.ParentTopic,
+                                     // Query the subtopics for each topic
                                      Subtopics = (from subtopic in _context.Config_Topic_Test
                                                   where subtopic.ParentTopic == topics.TopicUrlPath
                                                   select new
                                                   {
                                                       Topic_ID = subtopic.Topic_ID,
-                                                  }).Any() // Check if the subquery has any results, if so return them
+                                                  }).Any() // Check if the subquery has any results, if so return them in the ternary below.
+                                                  // Ternary will either return subtopic results or null if there are no subtopics for the topic
                                                   ? (from subtopic in _context.Config_Topic_Test
                                                      where subtopic.ParentTopic == topics.TopicUrlPath
                                                      select new MinimalTopic()
@@ -68,6 +86,24 @@ namespace epht_api.Controllers
                                                          TopicTitle = subtopic.TopicTitle,
                                                          TopicUrlPath = subtopic.TopicUrlPath,
                                                          Category = subtopic.Category,
+                                                         // Query the subtopic for each theme
+                                                         Themes = (from theme in _context.Config_Theme_Test
+                                                                   where theme.Topic_ID == subtopic.Topic_ID
+                                                                   select new MinimalTheme()
+                                                                   {
+                                                                       ThemeTitle = theme.ThemeTitle,
+                                                                       ThemePath = theme.ThemePath,
+                                                                       DefaultTabPath = theme.DefaultTabPath,
+                                                                       // Query the tabs for each subtopic theme
+                                                                       Tabs = (from tab in _context.Config_Tab_Test
+                                                                               where tab.Theme_ID == theme.Theme_ID
+                                                                               select new MinimalTab()
+                                                                               {
+                                                                                   TabTitle = tab.TabTitle,
+                                                                                   TabPath = tab.TabPath,
+
+                                                                               }).ToList()
+                                                                   }).ToList(),
                                                          ParentTopic = subtopic.ParentTopic
                                                      }).ToList() // Materialize only if there are results
                                                   : null // Set to null if no results so it is omitted from the JSON result
@@ -78,7 +114,7 @@ namespace epht_api.Controllers
 
         // Full topic config intended for per topic fetch
         // GET: api/Topics/BirthDefects/GetFullConfig
-        [HttpGet("/api/topics/{topicUrlPath}/FullConfig")]
+        [HttpGet("api/[controller]/{topicUrlPath}/FullConfig")]
         public async Task<ActionResult<Topic>> GetFullConfig(string topicUrlPath)
         {
             var topic = await _context.Config_Topic_Test.FirstOrDefaultAsync(topic => topic.TopicUrlPath == topicUrlPath);
@@ -263,8 +299,8 @@ namespace epht_api.Controllers
                                                             Width = drawingInfo.SymbolWidth,
                                                             Height = drawingInfo.SymbolHeight,
                                                             Angle = drawingInfo.SymbolAngle,
-                                                            XOffset = drawingInfo.SymbolXOffset,
-                                                            YOffset = drawingInfo.SymbolYOffset
+                                                            Xoffset = drawingInfo.SymbolXOffset,
+                                                            Yoffset = drawingInfo.SymbolYOffset
                                                         },
                                                         Label = drawingInfo.RendererLabel,
                                                         Description = drawingInfo.RendererDescription
@@ -304,7 +340,7 @@ namespace epht_api.Controllers
         // PUT: api/Topics/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
+        [HttpPut("api/[controller]/{id}")]
         public async Task<IActionResult> PutTopic(int id, Topic topic)
         {
             if (id != topic.Topic_ID)
@@ -336,7 +372,7 @@ namespace epht_api.Controllers
         // POST: api/Topics
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
+        [HttpPost("api/[controller]/{topic}")]
         public async Task<ActionResult<Topic>> PostTopic(Topic topic)
         {
             _context.Config_Topic_Test.Add(topic);
@@ -346,7 +382,7 @@ namespace epht_api.Controllers
         }
 
         // DELETE: api/Topics/5
-        [HttpDelete("{id}")]
+        [HttpDelete("api/[controller]/{id}")]
         public async Task<ActionResult<Topic>> DeleteTopic(int id)
         {
             var topic = await _context.Config_Topic_Test.FindAsync(id);

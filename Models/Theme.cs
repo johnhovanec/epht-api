@@ -19,4 +19,13 @@ namespace epht_api.Models
         [NotMapped]
         public List<Tab> Tabs { get; set; }
     }
+
+    public class MinimalTheme
+    {
+        public string ThemeTitle { get; set; }
+        public string ThemePath { get; set; }
+        public string DefaultTabPath { get; set; }
+        [NotMapped]
+        public List<MinimalTab> Tabs { get; set; }
+    }
 }

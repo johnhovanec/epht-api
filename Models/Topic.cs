@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace epht_api.Models
 {
@@ -11,7 +12,7 @@ namespace epht_api.Models
         public string TopicTitle { get; set; }
         public string TopicUrlPath { get; set; }
         public string Category { get; set; }
-        public string DefaultTabPath { get; set; }
+        public string DefaultThemePath { get; set; }
         public string Overview { get; set; }
         public string AboutData { get; set; }
         public string CountySuppressionRuleRange { get; set; }
@@ -26,11 +27,14 @@ namespace epht_api.Models
 
     public class MinimalTopic
     {
+        [JsonIgnore]
         public int Topic_ID { get; set; }
         public string TopicTitle { get; set; }
         public string TopicUrlPath { get; set; }
         public string Category { get; set; }
         public string ParentTopic { get; set; }
+        [NotMapped]
+        public List<MinimalTheme> Themes { get; set; }
         [NotMapped]
         public List<MinimalTopic> Subtopics { get; set; }
     }
