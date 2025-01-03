@@ -21,7 +21,8 @@ namespace epht_api.Models
         public string ChartType { get; set; }                           // Chart specific
         public bool Selectable { get; set; }                            // Chart specific
         public string Baseline { get; set; }                            // Chart specific
-        public string DefaultSelection { get; set; }                    
+        public string DefaultSelection { get; set; }
+        public string DefaultSelectionName { get; set; }
         public string InfoTitle { get; set; }                           // Chart specific
         public string InfoID { get; set; }                              // Chart specific
         public string InfoSubtitle { get; set; }                        // Chart specific
@@ -39,6 +40,7 @@ namespace epht_api.Models
         public string ChartYAxisField { get; set; }                     // Chart specific
         public bool DisplayChartDiscontinuityGraphic { get; set; }      // Chart specific
         public bool DisplayXAxisLabel { get; set; }                     // Chart specific
+        public bool OmitCommunityProfile { get; set; }                  // Chart specific
         public string ChartXAxisField { get; set; }                     // Chart specific
         public string XAxisLabel { get; set; }                          // Chart specific
         public string DefaultStratification { get; set; }               // Chart specific

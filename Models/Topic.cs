@@ -11,7 +11,7 @@ namespace epht_api.Models
         public string TopicTitle { get; set; }
         public string TopicUrlPath { get; set; }
         public string Category { get; set; }
-        public string DefaultTabPath { get; set; }
+        public string DefaultThemePath { get; set; }
         public string Overview { get; set; }
         public string AboutData { get; set; }
         public string CountySuppressionRuleRange { get; set; }
