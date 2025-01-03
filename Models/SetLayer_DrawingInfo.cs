@@ -57,8 +57,8 @@ namespace epht_api.Models
             public int Width { get; set; }
             public int Height { get; set; }
             public int Angle { get; set; }
-            public int XOffset { get; set; }
-            public int YOffset { get; set; }
+            public int Xoffset { get; set; }
+            public int Yoffset { get; set; }
         }
     }
 }

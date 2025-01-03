@@ -299,8 +299,8 @@ namespace epht_api.Controllers
                                                             Width = drawingInfo.SymbolWidth,
                                                             Height = drawingInfo.SymbolHeight,
                                                             Angle = drawingInfo.SymbolAngle,
-                                                            XOffset = drawingInfo.SymbolXOffset,
-                                                            YOffset = drawingInfo.SymbolYOffset
+                                                            Xoffset = drawingInfo.SymbolXOffset,
+                                                            Yoffset = drawingInfo.SymbolYOffset
                                                         },
                                                         Label = drawingInfo.RendererLabel,
                                                         Description = drawingInfo.RendererDescription
