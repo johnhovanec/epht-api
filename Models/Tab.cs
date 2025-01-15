@@ -24,7 +24,7 @@ namespace epht_api.Models
         public string DefaultSelection { get; set; }
         public string DefaultSelectionName { get; set; }
         public string InfoTitle { get; set; }                           // Chart specific
-        public string InfoID { get; set; }                              // Chart specific
+        public string InfoID { get; set; }                              // Used by charts and tables. With tables this field named as 'id' sets the key for DataGrid tables.
         public string InfoSubtitle { get; set; }                        // Chart specific
         public string ContentTitle { get; set; }                        // Map specific
         public string ChartTitle { get; set; }                          // Chart specific
