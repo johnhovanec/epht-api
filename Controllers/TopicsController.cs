@@ -293,7 +293,7 @@ namespace epht_api.Controllers
                                                         Symbol = new SetLayer_DrawingInfo.DrawingInfoSymbol()
                                                         {
                                                             Type = drawingInfo.SymbolType,
-                                                            Url = drawingInfo.SymbolUrl,
+                                                            Url = drawingInfo.SymbolUrl ?? "",             // This drawingInfo parameter can't be null, even if it's not in use
                                                             ImageData = drawingInfo.SymbolImageData,
                                                             ContentType = drawingInfo.SymbolContentType,
                                                             Width = drawingInfo.SymbolWidth,

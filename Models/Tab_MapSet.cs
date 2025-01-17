@@ -17,6 +17,7 @@ namespace epht_api.Models
         public string Geometry { get; set; }
         public string TableTitle { get; set; }
         [NotMapped]
+        [JsonPropertyName("outFields")]
         public List<string> Outfields { get; set; }
         [NotMapped]
         public List<MapSet_ColumnHeader> ColumnHeaders { get; set; }

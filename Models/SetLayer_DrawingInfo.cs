@@ -51,7 +51,8 @@ namespace epht_api.Models
         public class DrawingInfoSymbol
         {
             public string Type { get; set; }
-            public string Url { get; set; }
+            [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+            public string Url { get; set; }         // The renderer requires a non-null value, we update this in TopicsController/GetFullConfig to return an empty string if null
             public string ImageData { get; set; }
             public string ContentType { get; set; }
             public int Width { get; set; }

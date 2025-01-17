@@ -44,7 +44,7 @@ namespace epht_api.Models
         public string ChartXAxisField { get; set; }                     // Chart specific
         public string XAxisLabel { get; set; }                          // Chart specific
         public string DefaultStratification { get; set; }               // Chart specific
-        public string Url { get; set; }                                 // Chart specific  
+        public string Url { get; set; }                                 // Chart specific: URI stem relative path to the epht-api endpoint  
         public bool TimeSlider { get; set; }                            // Chart specific
         public bool HighContrastPalette { get; set; }                   // Chart specific
         public string TableTitle { get; set; }

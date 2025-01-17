@@ -30,7 +30,7 @@ namespace epht_api.Models
         public bool OmitCommunityProfile { get; set; }
         public string Type { get; set; }
         public string CustomStyleTitle { get; set; }
-        public string Url { get; set; }
+        public string Url { get; set; }                     // URI stem relative path to the maps endpoint
         [NotMapped]
         public SetLayer_Content Content { get; set; }
         [NotMapped]
